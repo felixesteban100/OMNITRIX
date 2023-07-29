@@ -1,0 +1,340 @@
+import /* React, */ { useState } from 'react'
+import { ALL_ALIENS_OMNIVERSE } from './constants';
+
+type Alien = {
+    name: string;
+    img: string;
+    height?: {
+        silouette?: string;
+        character?: string;
+    };
+    ultimate?: Alien
+}
+
+const ALL_ALIENS: Alien[] = ALL_ALIENS_OMNIVERSE
+
+function OmnitrixOmniverse() {
+    const [viewAlienSelection, setViewAlienSelection] = useState<boolean>(false)
+    const [alienTransformed, setAlienSelected] = useState<boolean>(false)
+    const [currentAlienInView, setCurrentAlienInView] = useState<Alien | null>(null)
+
+    const [recharged, setRecharged] = useState(false)
+    const [typeOfcharging, setTypeOfcharging] = useState<string>("normal")
+
+    function changeAlienByNumber(num: number | null): void {
+        if (num !== null) setCurrentAlienInView(ALL_ALIENS[num])
+    }
+
+    function selectNextAlien() {
+        const nextAlien: number = ALL_ALIENS.reduce((acc, current, index) => {
+            if (current.name === currentAlienInView?.name) acc = index + 1
+            return acc
+        }, 0)
+
+        if (nextAlien === ALL_ALIENS.length) changeAlienByNumber(0)
+        if (viewAlienSelection && nextAlien !== ALL_ALIENS.length) changeAlienByNumber(nextAlien)
+    }
+
+    function selectPreviousAlien() {
+        const previousAlien: number = ALL_ALIENS.reduce((acc, current, index) => {
+            if (current.name === currentAlienInView?.name) acc = index - 1
+            return acc
+        }, 0)
+
+        if (previousAlien === -1) changeAlienByNumber(ALL_ALIENS.length - 1)
+        if (viewAlienSelection && previousAlien > -1) changeAlienByNumber(previousAlien)
+    }
+
+    function getAnimationCharger(type: string): string {
+        if (typeOfcharging === "ultra" && type === "border") {
+            return "animate-omnitrixFlashingLightsLogoUncharged"
+        }
+
+        if (typeOfcharging === "ultra" && type === "background") {
+            return "animate-omnitrixFlashingLightsUnCharged"
+        }
+
+        if (typeOfcharging === "normal" && type === "border") {
+            return "animate-omnitrixFlashingLightsLogo2"
+        }
+
+        if (typeOfcharging === "normal" && type === "background") {
+            return " animate-omnitrixFlashingLightsCharged"
+        }
+        return ""
+    }
+
+    function caseFunction() {
+        if (recharged) {
+            setViewAlienSelection(prev => !prev)
+            setAlienSelected(false)
+            if (!viewAlienSelection) setCurrentAlienInView(null)
+        }
+    }
+
+    function toogleRecharger() {
+        setViewAlienSelection(false)
+        setAlienSelected(false)
+        setCurrentAlienInView(null)
+        setRecharged(prev => !prev)
+    }
+
+    return (
+        <div data-theme="omnitrix_omniverse" className={`${alienTransformed && "animate-backgroundBen10"} min-h-screen overflow-hidden px-0 mx-0`}>
+            <div className='flex gap-5 ml-5 pt-5'>
+                <p>Toggle recharged</p>
+                <input
+                    checked={recharged}
+                    type='checkbox'
+                    className='toggle toggle-primary'
+                    onChange={() => toogleRecharger()}
+                />
+                <select value={typeOfcharging} onChange={(e) => setTypeOfcharging(e.target.value)}>
+                    <option value="ultra">ULTRA</option>
+                    <option value="normal">NORMAL</option>
+                </select>
+            </div>
+
+            <div className={`h-full md:max-h-screen ${alienTransformed ? "pt-[15rem]" : "pt-[15rem]"}`}>
+                {
+                    alienTransformed && currentAlienInView ?
+                        <AlienImage
+                            currentAlienInView={currentAlienInView}
+                            setAlienSelected={setAlienSelected}
+                        // changeAlienByNumber={changeAlienByNumber}
+                        />
+                        : null
+                }
+
+                <div className={` ${alienTransformed ? "animate-omnitrixRotateDown mt-44" : "animate-omnitrixRotateUp"} bg-transparent md:bg-secondary mx-auto h-full py-20  flex justify-center items-center `}>
+                    <div className='bg-transparent md:bg-neutral mx-auto h-72 w-full p-20 rounded-md flex flex-col-reverse md:flex-row justify-center items-center gap-10 md:gap-0'>
+                        <Lines margin={'mr-[80rem]'} />
+
+                        <ButtonActivateOmnitrix
+                            viewAlienSelection={viewAlienSelection}
+                            alienTransformed={alienTransformed}
+                            setViewAlienSelection={setViewAlienSelection}
+                            setAlienSelected={setAlienSelected}
+                            setCurrentAlienInView={setCurrentAlienInView}
+                        />
+
+                        <div className={`flex justify-center items-center m-0 md:mr-[10rem] `}>
+                            <div
+                                className={`bg-transparent border-[5rem] border-x-white ${recharged ? 'border-y-primary animate-omnitrixFlashingLightsLogo' : `border-y-secondary ${getAnimationCharger('border')}`} w-[30rem] h-[30rem] lg:w-[40rem] lg:h-[30rem] rounded-2xl bg-accent flex justify-center items-center`}
+                            />
+                            <div
+                                className={`bg-base-200 absolute w-[25rem] h-[25rem] lg:w-[30rem] lg:h-[30rem] rounded-none flex justify-center items-center`}
+                            />
+
+                            <Ben10Logo />
+
+                            <CaseForOmnitrix
+                                caseFunction={caseFunction}
+                                recharged={recharged}
+                                viewAlienSelection={viewAlienSelection}
+                                getAnimationCharger={getAnimationCharger}
+                            />
+
+                            <UpperRingAlienSelector
+                                selectNextAlien={selectNextAlien}
+                                viewAlienSelection={viewAlienSelection}
+                                currentAlienInView={currentAlienInView}
+                                alienTransformed={alienTransformed}
+                            />
+
+                            <LowerRingAlienSelector
+                                selectPreviousAlien={selectPreviousAlien}
+                                viewAlienSelection={viewAlienSelection}
+                            />
+
+                            <TransformingButton
+                                currentAlienInView={currentAlienInView}
+                                setAlienSelected={setAlienSelected}
+                                setCurrentAlienInView={setCurrentAlienInView}
+                                viewAlienSelection={viewAlienSelection}
+                            />
+                        </div>
+
+                        <Lines margin={'ml-[80rem]'} />
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+
+type LinesProps = { margin: string }
+function Lines({ margin }: LinesProps) {
+    return (
+        <div className={`absolute h-[18rem] bg-transparent flex gap-16 ${margin}`}>
+            <div className='h-full bg-black w-2' />
+            <div className='h-full bg-black w-2' />
+            <div className='h-full bg-black w-2' />
+            <div className='h-full bg-black w-2' />
+            <div className='h-full bg-black w-2' />
+            <div className='h-full bg-black w-2' />
+            <div className='h-full bg-black w-2' />
+            <div className='h-full bg-black w-2' />
+            <div className='h-full bg-black w-2' />
+        </div>
+    );
+}
+
+
+function Ben10Logo() {
+    return <div
+        className={`absolute w-[20rem] h-[20rem] lg:h-[28rem] lg:w-[28rem] rounded-full bg-transparent flex flex-col justify-center items-center `}
+    >
+        <div
+            className={`absolute w-[20rem] h-[20rem] lg:h-[25rem] lg:w-[25rem] rounded-full  flex flex-col justify-center items-center overflow-hidden bg-black border-4 `}
+        >
+            <div
+                className={`mx-auto h-0 w-0 border-r-[10rem] lg:border-r-[10rem]  border-t-[18rem] lg:border-t-[18rem]   border-l-[10rem] lg:border-l-[10rem] border-solid  border-r-transparent  border-l-transparent  border-t-primary rounded-full -mb-32 `} />
+            <div
+                className={`mx-auto  h-0 w-0  border-r-[10rem] lg:border-r-[10rem]  border-b-[18rem] lg:border-b-[18rem]  border-l-[10rem] lg:border-l-[10rem] border-solid  border-r-transparent  border-l-transparent  border-b-primary rounded-full`} />
+        </div>
+    </div>;
+}
+
+
+type UpperRingAlienSelectorProps = {
+    selectNextAlien: () => void;
+    viewAlienSelection: boolean
+    currentAlienInView: Alien | null
+    alienTransformed: boolean
+}
+function UpperRingAlienSelector({ selectNextAlien, viewAlienSelection, currentAlienInView, alienTransformed }: UpperRingAlienSelectorProps) {
+    return (
+        <div onClick={() => selectNextAlien()} className={`absolute btn btn-outline bg-transparent hover:bg-transparent border-[5rem] border-primary/20 hover:border-primary/50 h-[40rem] w-[40rem]  rounded-full flex ${viewAlienSelection ? "animate-spin-once2" : "hidden"}`}>
+            <div className=' h-full w-full flex flex-col items-center'>
+                <div className={`-mt-[4.8rem] h-fit w-fit p-3 bg-primary `}>
+                    {currentAlienInView !== null ? <img className={`h-[3rem] lg:h-[3rem] transition-all duration-1000 ${alienTransformed ? "hidden" : "brightness-0"}`} src={currentAlienInView.img} alt={`${currentAlienInView.img}`} /> : null}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+
+type LowerRingAlienSelectorProps = {
+    selectPreviousAlien: () => void;
+    viewAlienSelection: boolean;
+}
+function LowerRingAlienSelector({ selectPreviousAlien, viewAlienSelection }: LowerRingAlienSelectorProps) {
+    return (
+        <div onClick={() => selectPreviousAlien()} className={`mt-[20rem] h-[20rem] w-[40rem] bg-transparent absolute flex justify-end items-end ${viewAlienSelection ? "" : "hidden"}`}>
+            <div className={`btn border-t-transparent hover:border-t-transparent hover:bg-transparent h-[20rem] w-[40rem] bg-transparent border-b-[5rem] border-l-[5rem]  border-r-[5rem] border-primary hover:border-secondary rounded-bl-full rounded-br-full ${viewAlienSelection ? "animate-omnitrixFlashingLightsCircle" : "hidden"}`} />
+        </div>
+    );
+}
+
+
+type CaseForOmnitrixProps = {
+    caseFunction: () => void,
+    recharged: boolean;
+    viewAlienSelection: boolean;
+    getAnimationCharger: (type: string) => string
+}
+function CaseForOmnitrix({ caseFunction, recharged, viewAlienSelection, getAnimationCharger }: CaseForOmnitrixProps) {
+    return (
+        <div onClick={() => caseFunction()} className={`${recharged ? "cursor-default" : "cursor-not-allowed"} absolute bg-black h-[25rem] w-[25rem] lg:h-[30rem] lg:w-[30rem] flex flex-row justify-center items-center  overflow-hidden ${viewAlienSelection ? "animate-omnitrixCoverOmniverseIn" : "animate-omnitrixCoverOmniverseOut"}`}>
+
+            <div className='flex flex-col gap-[9.5rem]'>
+                <div className={` h-14 w-[20rem] rotate-[50deg] rounded-none ${recharged ? "bg-primary/100 animate-omnitrixFlashingLightsCharged" : `bg-secondary ${getAnimationCharger('background')}`} `} />
+                <div className={` h-14 w-[20rem] -rotate-[50deg] rounded-none' ${recharged ? "bg-primary animate-omnitrixFlashingLightsCharged" : `bg-secondary ${getAnimationCharger('background')}`} `} />
+            </div>
+            <div className='flex flex-col gap-[9.5rem]'>
+                <div className={` h-14 w-[20rem] -rotate-[50deg] rounded-none ${recharged ? "bg-primary animate-omnitrixFlashingLightsCharged" : `bg-secondary ${getAnimationCharger('background')}`} `} />
+                <div className={` h-14 w-[20rem] rotate-[50deg] rounded-none' ${recharged ? "bg-primary animate-omnitrixFlashingLightsCharged" : `bg-secondary ${getAnimationCharger('background')}`} `} />
+            </div>
+        </div>
+    );
+}
+
+
+type ButtonActivateOmnitrixProps = {
+    viewAlienSelection: boolean;
+    alienTransformed: boolean;
+    setViewAlienSelection: React.Dispatch<React.SetStateAction<boolean>>;
+    setAlienSelected: React.Dispatch<React.SetStateAction<boolean>>;
+    setCurrentAlienInView: React.Dispatch<React.SetStateAction<Alien | null>>
+}
+function ButtonActivateOmnitrix({ viewAlienSelection, alienTransformed, setViewAlienSelection, setAlienSelected, setCurrentAlienInView }: ButtonActivateOmnitrixProps) {
+    return (
+        <div className={`${viewAlienSelection && alienTransformed ? 'visible' : "invisible"} z-10 -mr-5 md:mr-[5rem] lg:mr-[2rem] mt-16 md:mt-0 rounded-full bg-accent w-14 h-14 lg:h-36 lg:w-36 flex justify-center items-center`}>
+            <div onClick={() => {
+                setViewAlienSelection(prev => !prev);
+                setAlienSelected(false);
+                if (!viewAlienSelection) setCurrentAlienInView(null);
+            }} className={`btn w-10 h-10 lg:w-28 lg:h-28 rounded-full btn-primary ${viewAlienSelection ? "bg-secondary" : ""}`} />
+        </div>
+    );
+}
+
+
+function AlienImage({ currentAlienInView, setAlienSelected/* , changeAlienByNumber */ }: { currentAlienInView: Alien; setAlienSelected: React.Dispatch<React.SetStateAction<boolean>>; /* changeAlienByNumber: (num: number) => void; */ }) {
+    return (
+        <div className={`w-[90%] absolute z-50 h-0 flex justify-center items-center translate-y-80`}>
+            <img
+                className={
+                    `${currentAlienInView.ultimate && "cursor-pointer"} 
+                    shadow-2xl
+                    shadow-[red]
+                    ml-[5rem] lg:ml-[15rem] 
+                    ${currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[35rem] mt-5"}  
+                    brightness-100 
+                    drop-shadow-2xl
+                    contrast-200 
+                    animate-alienRotateUpLittle lg:animate-alienRotateUp`
+                }
+                src={currentAlienInView.img}
+                alt={currentAlienInView.name}
+                onClick={() => setAlienSelected(false)}
+            // onMouseEnter={() => changeAlienByNumber(Math.floor(Math.random() * ALL_ALIENS.length - 1))}
+            />
+        </div >
+    );
+}
+
+{/* <div className={`w-[90%] absolute z-50 h-0 flex justify-center items-center translate-y-80`}>
+            <img
+                className={
+                    `${currentAlienInView.ultimate && "cursor-pointer"} 
+                    shadow-2xl
+                    shadow-[red]
+                    ml-[5rem] lg:ml-[15rem] 
+                    ${currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[35rem] mt-5"}  
+                    brightness-100 
+                    drop-shadow-2xl 
+                    contrast-200 
+                    animate-alienRotateUpLittle lg:animate-alienRotateUp`
+                }
+                src={currentAlienInView.img}
+                alt={currentAlienInView.name}
+                onClick={() => setAlienSelected(false)}
+            />
+        </div> */}
+
+
+type TransformingButtonProps = {
+    currentAlienInView: Alien | null;
+    setAlienSelected: React.Dispatch<React.SetStateAction<boolean>>;
+    setCurrentAlienInView: React.Dispatch<React.SetStateAction<Alien | null>>;
+    viewAlienSelection: boolean
+}
+function TransformingButton({ currentAlienInView, setCurrentAlienInView, setAlienSelected, viewAlienSelection }: TransformingButtonProps) {
+    return (
+        <div onClick={() => {
+            if (currentAlienInView) setAlienSelected(true);
+
+            if (!currentAlienInView) {
+                setCurrentAlienInView(ALL_ALIENS[Math.floor(Math.random() * ALL_ALIENS.length)]);
+                setAlienSelected(true);
+            }
+        }} className={`absolute bg-primary/0 hover:bg-primary/50 w-[30rem] h-[30rem] rounded-full ${viewAlienSelection ? "animate-scaleRingCenter" : "hidden"}`} />
+    );
+}
+
+
+export default OmnitrixOmniverse
