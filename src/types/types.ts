@@ -5,5 +5,6 @@ export type Alien = {
         silouette?: string;
         character?: string;
     };
-    ultimate?: Alien
+    ultimate?: Alien, 
+    color?: string
 }
