@@ -1,4 +1,4 @@
-import { Alien } from "../types/types";
+import { Alien } from "./types";
 
 //https://www.google.com/search?q=all+ben+10+aliens+first+appearance&client=opera-gx&hs=awI&bih=927&biw=970&hl=en&sxsrf=AB5stBjj-1S2HzAALrtoDaEEh2lrLLrRWA%3A1690040313472&ei=-fe7ZLqxHIPj5NoPlIqosAg&oq=all+ben+10+aliens+first+&gs_lp=Egxnd3Mtd2l6LXNlcnAiGGFsbCBiZW4gMTAgYWxpZW5zIGZpcnN0ICoCCAAyBRAhGKABSIxYUMEdWPRNcAF4AZABAJgB-gGgAdcNqgEGMS4xMS4xuAEDyAEA-AEBwgIKEAAYRxjWBBiwA8ICBxAjGIoFGCfCAggQABiKBRiRAsICBRAAGIAEwgIFEC4YgATCAgcQIxiwAhgnwgIHEAAYDRiABMICBxAuGA0YgATCAgYQABgHGB7CAgcQABiKBRhDwgIKEAAYgAQYFBiHAsICBhAAGBYYHsICCBAAGIoFGIYD4gMEGAAgQYgGAZAGCA&sclient=gws-wiz-serp
 export const ALL_ALIENS_OG: Alien[] = [
@@ -129,26 +129,26 @@ export const ALL_ALIENS_OG: Alien[] = [
         img: '/aliens/og/Ripjaws.png'
     },
 
-].sort(() => Math.random() - 0.5) //shuffle array ✅
+].sort(() => Math.random() - 0.5) //shuffle array âœ…
 
 export const ALL_ALIENS_OG_OMNIVERSE: Alien[] = [
     //fedback
     //clockwork
     {
         name: 'clockwork',
-        img: '/aliens/omniverse/young/clockwork.png' //✅
+        img: '/aliens/omniverse/young/clockwork.png' //âœ…
     },
     {
         name: 'feedback',
-        img: '/aliens/omniverse/young/feedback.png' //✅
+        img: '/aliens/omniverse/young/feedback.png' //âœ…
     },
     {
         name: 'Diamondhead',
-        img: '/aliens/omniverse/young/Diamondhead.png' //✅
+        img: '/aliens/omniverse/young/Diamondhead.png' //âœ…
     },
     {
         name: 'Way_Big',
-        img: '/aliens/omniverse/Way_Big.png', //✅
+        img: '/aliens/omniverse/Way_Big.png', //âœ…
         height: {
             // silouette: 'h-[13rem] lg:h-[18rem]',
             character: 'h-[50rem] -mt-[15rem] lg:-mt-[10rem]'
@@ -156,7 +156,7 @@ export const ALL_ALIENS_OG_OMNIVERSE: Alien[] = [
     },
     /*{
         name: 'Spitter',
-        img: '/aliens/omniverse/young/Spitter.png', //⭕
+        img: '/aliens/omniverse/young/Spitter.png', //â­•
         height: {
             silouette: 'h-[10rem] lg:h-[14rem]',
             // character: 'h-[25rem] lg:h-[30rem] mt-[5rem] lg:mt-[8rem]'
@@ -166,7 +166,7 @@ export const ALL_ALIENS_OG_OMNIVERSE: Alien[] = [
 
     {
         name: 'Wildmutt',
-        img: '/aliens/omniverse/young/Wildmutt.png', //✅
+        img: '/aliens/omniverse/young/Wildmutt.png', //âœ…
         height: {
             silouette: 'h-[10rem] lg:h-[13rem]',
             character: 'h-[22rem] mt-[10rem] lg:mt-[20rem]'
@@ -175,28 +175,28 @@ export const ALL_ALIENS_OG_OMNIVERSE: Alien[] = [
 
     {
         name: 'Heatblast',
-        img: '/aliens/omniverse/heatblast.png' //✅
+        img: '/aliens/omniverse/heatblast.png' //âœ…
     },
     {
         name: 'benvictor_Frankenstrike',
-        img: '/aliens/omniverse/young/benvictor_Frankenstrike.png' //✅
+        img: '/aliens/omniverse/young/benvictor_Frankenstrike.png' //âœ…
     },
     {
         name: 'benwolf_Blitzwolfer',
-        img: '/aliens/omniverse/young/benwolf_Blitzwolfer.png'//✅
+        img: '/aliens/omniverse/young/benwolf_Blitzwolfer.png'//âœ…
     },
     {
         name: 'Cannonbolt',
-        img: '/aliens/omniverse/young/Cannonbolt.png' //✅
+        img: '/aliens/omniverse/young/Cannonbolt.png' //âœ…
     },
 
     {
         name: 'Upgrade',
-        img: '/aliens/omniverse/young/Upgrade.png' //✅
+        img: '/aliens/omniverse/young/Upgrade.png' //âœ…
     },
     {
         name: 'Buzzshock',
-        img: '/aliens/omniverse/young/Buzzshock.png',//✅
+        img: '/aliens/omniverse/young/Buzzshock.png',//âœ…
         height: {
             // silouette: 'h-[15rem]',
             character: 'h-[15rem] mt-[17rem] lg:mt-[25rem]'
@@ -204,7 +204,7 @@ export const ALL_ALIENS_OG_OMNIVERSE: Alien[] = [
     },
     {
         name: 'grey_matter',
-        img: '/aliens/omniverse/young/grey_matter.png', //✅
+        img: '/aliens/omniverse/young/grey_matter.png', //âœ…
         height: {
             // silouette: 'h-8',
             character: 'h-[10rem] mt-[20rem] lg:mt-[28rem]'
@@ -212,20 +212,20 @@ export const ALL_ALIENS_OG_OMNIVERSE: Alien[] = [
     },
     {
         name: 'ghostfreak',
-        img: '/aliens/omniverse/young/ghostfreak.png'//✅
+        img: '/aliens/omniverse/young/ghostfreak.png'//âœ…
     },
     {
         name: 'benmummy_snare_oh',
-        img: '/aliens/omniverse/young/benmummy_snare_oh.png' //✅
+        img: '/aliens/omniverse/young/benmummy_snare_oh.png' //âœ…
     },
     {
         name: 'Four_arms',
-        img: '/aliens/omniverse/young/Four_arms.png' //✅
+        img: '/aliens/omniverse/young/Four_arms.png' //âœ…
     },
 
     {
         name: 'Ditto',
-        img: '/aliens/omniverse/young/Ditto.png', //✅
+        img: '/aliens/omniverse/young/Ditto.png', //âœ…
         height: {
             // silouette: 'h-8',
             character: 'h-[23rem] mt-[10rem] lg:mt-[15rem]'
@@ -233,7 +233,7 @@ export const ALL_ALIENS_OG_OMNIVERSE: Alien[] = [
     },
     {
         name: 'eye_guy',
-        img: '/aliens/omniverse/young/eye_guy.png', //✅
+        img: '/aliens/omniverse/young/eye_guy.png', //âœ…
         height: {
             // silouette: '',
             character: 'h-[30rem] mt-[10rem] lg:mt-[15rem]'
@@ -241,7 +241,7 @@ export const ALL_ALIENS_OG_OMNIVERSE: Alien[] = [
     },
     {
         name: 'Upchuck',
-        img: '/aliens/omniverse/young/Upchuck.png', //✅
+        img: '/aliens/omniverse/young/Upchuck.png', //âœ…
         height: {
             silouette: 'h-[13rem] lg:h-[18rem]',
             character: 'h-[23rem] mt-[10rem] lg:mt-[15rem]'
@@ -249,7 +249,7 @@ export const ALL_ALIENS_OG_OMNIVERSE: Alien[] = [
     },
     {
         name: 'Arctiguana',
-        img: '/aliens/omniverse/young/Arctiguana.png', //✅
+        img: '/aliens/omniverse/young/Arctiguana.png', //âœ…
         height: {
             silouette: 'h-[13rem] lg:h-[18rem]',
             character: 'h-[28rem] mt-[5rem] lg:mt-[15rem]'
@@ -258,7 +258,7 @@ export const ALL_ALIENS_OG_OMNIVERSE: Alien[] = [
     },
     {
         name: 'XLR8',
-        img: '/aliens/omniverse/young/XLR8.png', //✅
+        img: '/aliens/omniverse/young/XLR8.png', //âœ…
         height: {
             silouette: 'h-[10rem] lg:h-[14rem]',
             character: 'h-[25rem] lg:h-[30rem] mt-[5rem] lg:mt-[8rem]'
@@ -266,11 +266,11 @@ export const ALL_ALIENS_OG_OMNIVERSE: Alien[] = [
     },
     {
         name: 'Wildvine',
-        img: '/aliens/omniverse/young/Wildvine.png' //✅
+        img: '/aliens/omniverse/young/Wildvine.png' //âœ…
     },
     {
         name: 'Stinkfly',
-        img: '/aliens/omniverse/young/Stinkfly.png',//✅
+        img: '/aliens/omniverse/young/Stinkfly.png',//âœ…
         height: {
             silouette: 'h-[10rem] lg:h-[14rem]',
             character: 'h-[45rem] lg:h-[50rem] -mt-[10rem] lg:-mt-[8rem]'
@@ -279,11 +279,11 @@ export const ALL_ALIENS_OG_OMNIVERSE: Alien[] = [
 
     {
         name: 'Ripjaws',
-        img: '/aliens/omniverse/young/Ripjaws.png' //✅
+        img: '/aliens/omniverse/young/Ripjaws.png' //âœ…
     },
 
 
-].sort(() => Math.random() - 0.5) //shuffle array ✅
+].sort(() => Math.random() - 0.5) //shuffle array âœ…
 
 export const ALL_ALIENS_ALIEN_FORCE: Alien[] = [
     {
@@ -388,7 +388,7 @@ export const ALL_ALIENS_ALIEN_FORCE: Alien[] = [
             character: 'h-[23rem] mt-[10rem] lg:mt-[15rem]'
         }
     },
-].sort(() => Math.random() - 0.5) //shuffle array ✅
+].sort(() => Math.random() - 0.5) //shuffle array âœ…
 
 export const ALL_ALIENS_ULTIMATE: Alien[] = [
     //NEW
@@ -605,7 +605,7 @@ export const ALL_ALIENS_ULTIMATE: Alien[] = [
 
     if (isIt === false) acc.push(curr)
     return acc
-}, []).sort(() => Math.random() - 0.5) //shuffle array ✅
+}, []).sort(() => Math.random() - 0.5) //shuffle array âœ…
 
 export const ALL_ALIENS_OMNIVERSE: Alien[] = [
     // ORIGINAL -----------------------------------------------------------------------
@@ -615,11 +615,13 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
         height: {
             silouette: 'h-[10rem] lg:h-[15rem]',
             character: 'h-[20rem] lg:h-[30rem] ml-[7rem] mt-[10rem] lg:mt-[5rem]'
-        }
+        },
+        color: 'orange'
     },
     {
         name: 'fourArms',
-        img: '/aliens/omniverse/fourArms.png'
+        img: '/aliens/omniverse/fourArms.png',
+        color: 'red'
     },
     {
         name: 'GreyMatter',
@@ -627,11 +629,13 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
         height: {
             // silouette: 'h-8',
             character: 'h-[23rem] mt-[5rem] lg:mt-[15rem]'
-        }
+        },
+        color: 'gray'
     },
     {
         name: 'XLR8',
-        img: '/aliens/omniverse/XLR8.png'
+        img: '/aliens/omniverse/XLR8.png',
+        color: 'blue'
     },
     {
         name: 'Upgrade',
@@ -639,7 +643,8 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
     },
     {
         name: 'Diamondhead',
-        img: '/aliens/omniverse/Diamondhead.png'
+        img: '/aliens/omniverse/Diamondhead.png',
+        color: 'cyan'
     },
     {
         name: 'Ripjaws',
@@ -659,15 +664,18 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
     },
     {
         name: 'Heatblast',
-        img: '/aliens/omniverse/heatblast.png'
+        img: '/aliens/omniverse/heatblast.png',
+        color: 'yellow'
     },
     {
         name: 'Cannonbolt',
-        img: '/aliens/omniverse/Cannonbolt.png'
+        img: '/aliens/omniverse/Cannonbolt.png',
+        color: 'yellow'
     },
     {
         name: 'Wildvine',
-        img: '/aliens/omniverse/Wildvine.png'
+        img: '/aliens/omniverse/Wildvine.png',
+        color: 'lime'
     },
     {
         name: 'Blitzwolfer',
@@ -679,11 +687,13 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
     },
     {
         name: 'snareOh',
-        img: '/aliens/omniverse/snareOh.png'
+        img: '/aliens/omniverse/snareOh.png',
+        color: 'yellow'
     },
     {
         name: 'Frankenstrike',
-        img: '/aliens/omniverse/Frankenstrike.png'
+        img: '/aliens/omniverse/Frankenstrike.png',
+        color: 'blue'
     },
     {
         name: 'Upchuck1',
@@ -711,7 +721,8 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
         height: {
             // silouette: 'h-[10rem] lg:h-[15rem]',
             character: 'h-[40rem] lg:h-[50rem] mr-[5rem] -mt-[10rem] lg:-mt-[10rem]'
-        }
+        },
+        color: 'red'
     },
     {
         name: 'spitter',
@@ -723,11 +734,13 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
         height: {
             // silouette: 'h-8',
             character: 'h-[23rem] mt-[5rem] lg:mt-[15rem]'
-        }
+        },
+        color: 'blue'
     },
     {
         name: 'Arctiguana',
-        img: '/aliens/omniverse/Arctiguana.png'
+        img: '/aliens/omniverse/Arctiguana.png',
+        color: 'cyan'
     },
     // ORIGINAL -----------------------------------------------------------------------
 
@@ -753,7 +766,8 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
     //ALIEN FORCE -----------------------------------------------------------------------
     {
         name: 'Swampfire',
-        img: '/aliens/omniverse/Swampfire.png'
+        img: '/aliens/omniverse/Swampfire.png',
+        color: 'red'
     },
     {
         name: 'Goop',
@@ -765,7 +779,8 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
         height: {
             silouette: 'h-[10rem] lg:h-[13rem]',
             character: 'h-[22rem] mt-[10rem] lg:mt-[20rem]'
-        }
+        },
+        color: 'blue'
     },
     {
         name: 'BigChill',
@@ -773,11 +788,13 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
         height: {
             silouette: 'h-[10rem] lg:h-[14rem]',
             character: 'h-[45rem] lg:h-[50rem] -mt-[10rem] lg:-mt-[8rem]'
-        }
+        },
+        color: 'blue'
     },
     {
         name: 'Humungousaur',
-        img: '/aliens/omniverse/Humungousaur.png'
+        img: '/aliens/omniverse/Humungousaur.png',
+        color: 'brown'
     },
     {
         name: 'brainstorm',
@@ -785,15 +802,18 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
         height: {
             silouette: 'h-[10rem] lg:h-[15rem]',
             character: 'h-[20rem] lg:h-[25rem] ml-[7rem] mt-[10rem] lg:mt-[10rem]'
-        }
+        },
+        color: 'brown'
     },
     {
         name: 'jetray',
-        img: '/aliens/omniverse/jetray.png'
+        img: '/aliens/omniverse/jetray.png',
+        color: 'red'
     },
     {
         name: 'Chromastone',
-        img: '/aliens/omniverse/Chromastone.png'
+        img: '/aliens/omniverse/Chromastone.png',
+        color: 'purple'
     },
     {
         name: 'EchoEcho',
@@ -805,15 +825,18 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
     },
     {
         name: 'AlienX',
-        img: '/aliens/omniverse/AlienX.png'
+        img: '/aliens/omniverse/AlienX.png',
+        color: 'white'
     },
     {
         name: 'Lodestar',
-        img: '/aliens/omniverse/Lodestar.png'
+        img: '/aliens/omniverse/Lodestar.png',
+        color: 'yellow'
     },
     {
         name: 'Rath',
-        img: '/aliens/omniverse/Rath.png'
+        img: '/aliens/omniverse/Rath.png',
+        color: 'orange'
     },
     {
         name: 'Upchuck2',
@@ -856,39 +879,48 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
     },
     {
         name: 'waterHazard',
-        img: '/aliens/omniverse/waterHazard.png'
+        img: '/aliens/omniverse/waterHazard.png',
+        color: 'blue'
     },
     {
         name: 'AmpFibian',
-        img: '/aliens/omniverse/AmpFibian.png'
+        img: '/aliens/omniverse/AmpFibian.png',
+        color: 'cyan'
     },
     {
         name: 'Armodrillo',
-        img: '/aliens/omniverse/Armodrillo.png'
+        img: '/aliens/omniverse/Armodrillo.png',
+        color: 'yellow'
     },
     {
         name: 'Terraspin',
-        img: '/aliens/omniverse/Terraspin.png'
+        img: '/aliens/omniverse/Terraspin.png',
+        color: 'brown'
     },
     {
         name: 'NRG',
-        img: '/aliens/omniverse/NRG.png'
+        img: '/aliens/omniverse/NRG.png',
+        color: 'orange'
     },
     {
         name: 'fastrack',
-        img: '/aliens/omniverse/fastrack.png'
+        img: '/aliens/omniverse/fastrack.png',
+        color: 'blue'
     },
     {
         name: 'clockwork',
-        img: '/aliens/omniverse/clockwork.png'
+        img: '/aliens/omniverse/clockwork.png',
+        color: 'yellow'
     },
     {
         name: 'ChamAlien',
-        img: '/aliens/omniverse/ChamAlien.png'
+        img: '/aliens/omniverse/ChamAlien.png',
+        color: 'purple'
     },
     {
         name: 'Eatle',
-        img: '/aliens/omniverse/Eatle.png'
+        img: '/aliens/omniverse/Eatle.png',
+        color: 'gray'
     },    
     {
         name: 'Jury_rigg',
@@ -896,7 +928,8 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
         height: {
             // silouette: 'h-8',
             character: 'h-[23rem] mt-[5rem] lg:mt-[15rem]'
-        }
+        },
+        color: 'red'
     },
     //ULTIMATE -----------------------------------------------------------------------
     
@@ -925,23 +958,28 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
     //OMNIVERSE -----------------------------------------------------------------------
     {
         name: 'Shocksquatch',
-        img: '/aliens/omniverse/Shocksquatch.png'
+        img: '/aliens/omniverse/Shocksquatch.png',
+        color: 'yellow'
     },
     {
         name: 'Feedback',
-        img: '/aliens/omniverse/Feedback.png'
+        img: '/aliens/omniverse/Feedback.png',
+        color: 'blue'
     },
     {
         name: 'Bloxx',
-        img: '/aliens/omniverse/Bloxx.png'
+        img: '/aliens/omniverse/Bloxx.png',
+        color: 'red'
     },
     {
         name: 'Gravattack_Pose',
-        img: '/aliens/omniverse/Gravattack_Pose.png'
+        img: '/aliens/omniverse/Gravattack_Pose.png',
+        color: 'red'
     },
     {
         name: 'Crashhopper',
-        img: '/aliens/omniverse/Crashhopper.png'
+        img: '/aliens/omniverse/Crashhopper.png',
+        color: 'lime'
     },
     {
         name: 'Ball_Weevil',
@@ -957,7 +995,8 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
         height: {
             // silouette: 'h-8',
             character: 'h-[23rem] mt-[5rem] lg:mt-[15rem]'
-        }
+        },
+        color: 'cyan'
     },
     {
         name: 'Pesky_Dust',
@@ -965,7 +1004,8 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
         height: {
             // silouette: 'h-8',
             character: 'h-[23rem] mt-[5rem] lg:mt-[15rem]'
-        }
+        },
+        color: 'pink'
     },
     {
         name: 'Mole_Stache',
@@ -973,7 +1013,8 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
         height: {
             // silouette: 'h-8',
             character: 'h-[23rem] mt-[5rem] lg:mt-[15rem]'
-        }
+        },
+        color: 'yellow'
     },
     {
         name: 'TheWorst',
@@ -981,15 +1022,18 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
         height: {
             // silouette: 'h-8',
             character: 'h-[23rem] mt-[5rem] lg:mt-[15rem]'
-        }
+        },
+        color: 'yellow'
     },
     {
         name: 'Kicken_Hawk',
-        img: '/aliens/omniverse/Kicken_Hawk.png'
+        img: '/aliens/omniverse/Kicken_Hawk.png',
+        color: 'brown'
     },
     {
         name: 'Astrodactyl',
-        img: '/aliens/omniverse/Astrodactyl.png'
+        img: '/aliens/omniverse/Astrodactyl.png',
+        color: 'brown'
     },
     {
         name: 'Gutrot',
@@ -1020,4 +1064,4 @@ export const ALL_ALIENS_OMNIVERSE: Alien[] = [
         img: '/aliens/omniverse/atomix.png'
     },
 ]
-// .sort(() => Math.random() - 0.5) //shuffle array 🔃
+// .sort(() => Math.random() - 0.5) //shuffle array ðŸ”ƒ
