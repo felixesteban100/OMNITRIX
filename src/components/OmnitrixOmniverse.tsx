@@ -1,7 +1,7 @@
 import /* React, */ { useState, useEffect } from 'react'
-import { ALL_ALIENS_OMNIVERSE } from './constants';
+import { ALL_ALIENS_OMNIVERSE } from '../constants';
 import { usePagination } from '@mantine/hooks';
-import { Alien } from './types';
+import { Alien } from '../types';
 
 const ALL_ALIENS: Alien[] = ALL_ALIENS_OMNIVERSE
 
