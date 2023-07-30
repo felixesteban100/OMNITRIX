@@ -1,19 +1,9 @@
 import /* React, */ { useState, useEffect } from 'react'
-import { ALL_ALIENS_OMNIVERSE } from '../constants';
+import { ALL_ALIENS_OMNIVERSE } from './constants';
 import { usePagination } from '@mantine/hooks';
-
-type Alien = {
-    name: string;
-    img: string;
-    height?: {
-        silouette?: string;
-        character?: string;
-    };
-    color?: string;
-}
+import { Alien } from './types';
 
 const ALL_ALIENS: Alien[] = ALL_ALIENS_OMNIVERSE
-console.log(ALL_ALIENS.length)
 
 function OmnitrixOmniverse() {
     const [viewAlienSelection, setViewAlienSelection] = useState<boolean>(false)
@@ -98,7 +88,6 @@ function OmnitrixOmniverse() {
                     alienSelectedTransformed && currentAlienInView && transform ?
                         <AlienImage
                             currentAlienInView={currentAlienInView}
-                            setCurrentAlienInView={setCurrentAlienInView}
                         />
                         : null
                 }
@@ -136,7 +125,10 @@ function OmnitrixOmniverse() {
                             <div
                                 className={`bg-transparent border-[5rem] border-x-white ${recharged ? 'border-y-primary animate-omnitrixFlashingLightsLogo' : `border-y-secondary ${getAnimationCharger('border')}`} w-[30rem] h-[30rem] lg:w-[40rem] lg:h-[30rem] rounded-2xl bg-accent flex justify-center items-center`}
                             >
-                                <GreenBoxesOnTheSidesOfTheHandlerOmnitrix />
+                                <GreenBoxesOnTheSidesOfTheHandlerOmnitrix 
+                                    setCurrentAlienInView={setCurrentAlienInView}
+                                    currentAlienInView={currentAlienInView}
+                                />
                             </div>
                             <div
                                 className={`bg-base-200 absolute w-[25rem] h-[25rem] lg:w-[30rem] lg:h-[30rem] rounded-none flex justify-center items-center`}
@@ -146,6 +138,7 @@ function OmnitrixOmniverse() {
                                 currentAlienInView={currentAlienInView}
                                 setAlienSelectedTransformed={setAlienSelectedTransformed}
                                 setCurrentAlienInView={setCurrentAlienInView}
+                                alienSelectedTransformed={alienSelectedTransformed}
                             />
 
                             <CaseForOmnitrix
@@ -229,14 +222,19 @@ type Ben10LogoProps = {
     currentAlienInView: Alien | null;
     setAlienSelectedTransformed: React.Dispatch<React.SetStateAction<boolean>>;
     setCurrentAlienInView: React.Dispatch<React.SetStateAction<Alien | null>>;
+    alienSelectedTransformed: boolean
 }
-function Ben10Logo({ currentAlienInView, setCurrentAlienInView, setAlienSelectedTransformed/* , viewAlienSelection */ }: Ben10LogoProps) {
+function Ben10Logo({ currentAlienInView, setCurrentAlienInView, setAlienSelectedTransformed, alienSelectedTransformed/* , viewAlienSelection */ }: Ben10LogoProps) {
     return (
         <div
             className={`absolute w-[20rem] h-[20rem] lg:h-[28rem] lg:w-[28rem] rounded-full bg-transparent flex flex-col justify-center items-center `}
             onClick={() => {
                 if (!currentAlienInView) {
                     setCurrentAlienInView(ALL_ALIENS[Math.floor(Math.random() * ALL_ALIENS.length)]);
+                }
+
+                if(alienSelectedTransformed){
+                    setCurrentAlienInView(ALL_ALIENS[Math.floor(Math.random() * ALL_ALIENS.length)])
                 }
                 setAlienSelectedTransformed(true);
             }}
@@ -476,7 +474,7 @@ function ButtonActivateOmnitrix({ viewAlienSelection, alienSelectedTransformed, 
 }
 
 
-function AlienImage({ currentAlienInView, setCurrentAlienInView }: { currentAlienInView: Alien; setCurrentAlienInView: React.Dispatch<React.SetStateAction<Alien | null>>; }) {
+function AlienImage({ currentAlienInView/* , setCurrentAlienInView */ }: { currentAlienInView: Alien; /* setCurrentAlienInView: React.Dispatch<React.SetStateAction<Alien | null>>; */ }) {
     const [hovering, setHovering] = useState(false)
 
     return (
@@ -484,23 +482,20 @@ function AlienImage({ currentAlienInView, setCurrentAlienInView }: { currentAlie
             <img
                 style={
                     hovering ?
-                        { filter: 
-                            `drop-shadow(5px 5px 5px ${currentAlienInView.color ? `${currentAlienInView.color}` : "green"}) 
-                            contrast(2)` 
-                        }
+                        { filter: `drop-shadow(10px 10px 10px ${currentAlienInView.color ? `${currentAlienInView.color}` : "green"}) contrast(2)` }
                         :
                         {}
                 }
                 className={
                     `ml-[5rem] lg:ml-[5rem] 
                     ${currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[35rem] mt-5"}  
-                    brightness-100
+                    brightness-100 
                     contrast-200 
                     animate-alienRotateUpLittle lg:animate-alienRotateUp`
                 }
                 src={currentAlienInView.img}
                 alt={currentAlienInView.name}
-                onClick={() => setCurrentAlienInView(ALL_ALIENS[Math.floor(Math.random() * ALL_ALIENS.length - 1)])}
+                // onClick={() => setCurrentAlienInView(ALL_ALIENS[Math.floor(Math.random() * ALL_ALIENS.length - 1)])}
                 onMouseEnter={() => setHovering(true)}
                 onMouseLeave={() => setHovering(false)}
             />
@@ -508,20 +503,43 @@ function AlienImage({ currentAlienInView, setCurrentAlienInView }: { currentAlie
     );
 }
 
+type GreenBoxesOnTheSidesOfTheHandlerOmnitrixProps = {
+    setCurrentAlienInView: React.Dispatch<React.SetStateAction<Alien | null>>
+    currentAlienInView: Alien | null
+}
+function GreenBoxesOnTheSidesOfTheHandlerOmnitrix({ setCurrentAlienInView, currentAlienInView }: GreenBoxesOnTheSidesOfTheHandlerOmnitrixProps) {
+    function nextAlien(){
+        const nextAlien: number = ALL_ALIENS.reduce((acc, current, index) => {
+            if (current.name === currentAlienInView?.name) acc = index + 1
+            return acc
+        }, 0)
 
-function GreenBoxesOnTheSidesOfTheHandlerOmnitrix({ }) {
+        if (nextAlien === ALL_ALIENS.length) setCurrentAlienInView(ALL_ALIENS[0])
+        if (nextAlien !== ALL_ALIENS.length) setCurrentAlienInView(ALL_ALIENS[nextAlien])
+    }
+
+    function previousAlien(){
+        const previousAlien: number = ALL_ALIENS_OMNIVERSE.reduce((acc, current, index) => {
+            if (current.name === currentAlienInView?.name) acc = index - 1
+            return acc
+        }, 0)
+
+        if (previousAlien === -1) setCurrentAlienInView(ALL_ALIENS[ALL_ALIENS.length - 1])
+        if (previousAlien > -1) setCurrentAlienInView(ALL_ALIENS[previousAlien])
+    }
+    
     return (
         <div className='bg-transparent flex justify-start gap-[26rem] lg:gap-[35rem]'>
-            <div className='bg-transparent flex flex-col justify-center gap-[2rem]'>
-                <div className='bg-secondary h-8 w-8' />
-                <div className='bg-secondary h-8 w-8' />
-                <div className='bg-secondary h-8 w-8' />
+            <div onClick={previousAlien} className='bg-transparent group/boxes1 flex flex-col justify-center gap-[2rem]'>
+                <div className='bg-secondary group-hover/boxes1:bg-primary h-8 w-8' />
+                <div className='bg-secondary group-hover/boxes1:bg-primary  h-8 w-8' />
+                <div className='bg-secondary group-hover/boxes1:bg-primary  h-8 w-8' />
 
             </div>
-            <div className='bg-transparent flex flex-col justify-center gap-[2rem]'>
-                <div className='bg-secondary h-8 w-8' />
-                <div className='bg-secondary h-8 w-8' />
-                <div className='bg-secondary h-8 w-8' />
+            <div onClick={nextAlien} className='bg-transparent group/boxes2 flex flex-col justify-center gap-[2rem]'>
+                <div className='bg-secondary group-hover/boxes2:bg-primary  h-8 w-8' />
+                <div className='bg-secondary group-hover/boxes2:bg-primary  h-8 w-8' />
+                <div className='bg-secondary group-hover/boxes2:bg-primary  h-8 w-8' />
             </div>
         </div>
     );
