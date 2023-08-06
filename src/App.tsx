@@ -1,6 +1,7 @@
 import OmnitrixOriginal from "./components/OmnitrixOriginal"
 import OmnitrixUltimate from "./components/OmnitrixUltimate"
 import OmnitrixOmniverse from "./components/OmnitrixOmniverse"
+import OmnitrixOriginalOmniverse from "./components/OmnitrixOriginalOmniverse"
 import OmnitrixAlienForce from "./components/OmnitrixAlienForce"
 
 function App() {
