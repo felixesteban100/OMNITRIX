@@ -69,6 +69,16 @@ export const BEN10_KEYFRAMES = {
             // opacity: 0,
         },
     },
+    omnitrixCoverOmniverseInLittle: {
+        '0%': {
+            transform: 'translateY(0px)',
+            // opacity: 1,
+        },
+        '100%': {
+            transform: 'translateY(-180px) rotateX(60deg)',
+            // opacity: 0,
+        },
+    },
     omnitrixCoverOmniverseOut: {
         '0%': {
             transform: 'translateY(-310px) rotateX(60deg)',
@@ -79,6 +89,17 @@ export const BEN10_KEYFRAMES = {
             // opacity: 1,
         },
     },
+    omnitrixCoverOmniverseOutLittle: {
+        '0%': {
+            transform: 'translateY(-180px) rotateX(60deg)',
+            // opacity: 0,
+        },
+        '100%': {
+            transform: 'translateY(0)',
+            // opacity: 1,
+        },
+    },
+
 
 
     omnitrixRunOutTop: {
@@ -465,23 +486,237 @@ export const BEN10_KEYFRAMES = {
             borderBottomColor: "theme('colors.error')",
         }
     },
-    backgroundBen10: {
+    transformIntoAlien: {
         '0%': {
-            backgroundColor: "theme('colors.accent')"
+            opacity: 1
         },
         '25%': {
-            backgroundColor: "theme('colors.secondary')"
+            opacity: 0.5
         },
         '50%': {
-            backgroundColor: "theme('colors.primary')"
+            opacity: 0
         },
         '75%': {
-            backgroundColor: "theme('colors.secondary')"
+            opacity: 0
         },
         '100%': {
-            backgroundColor: "theme('colors.base-100')"
+            opacity: 0,
+            transform: 'scale(0)',
         }
     },
+    alienNormalOut: {
+        "0%": {
+            opacity: 1,
+        },
+        "100%": {
+            opacity: 0,
+        }
+    },
+
+    ultimateAlienActivate: {
+        "0%": {
+            transform: "translateZ(-1400px) translateY(-200px) scaleY(0)",
+        },
+        "100%": {
+            transform: "translateZ(0) translateY(-200px) scaleY(1)",
+        }
+    },
+
+    alienFlick: {
+        "0%": {
+            transform: 'rotateX(0) translateY(-200px) scale(1)',
+            opacity: 0
+        },
+        "10%": {
+            opacity: 0
+        },
+        "10.1%": {
+            opacity: 1
+        },
+        "10.2%": {
+            opacity: 0
+        },
+        "20%": {
+            opacity: 0
+        },
+        "20.1%": {
+            opacity: 1
+        },
+        "20.6%": {
+            opacity: 0
+        },
+        " 30%": {
+            opacity: 0
+        },
+        "30.1%": {
+            opacity: 1
+        },
+        "30.5%": {
+            opacity: 1
+        },
+        "30.6%": {
+            opacity: 0
+        },
+        " 45% ": {
+            opacity: 0
+        },
+        "45.1%": {
+            opacity: 1
+        },
+        "50% ": {
+            opacity: 1
+        },
+        "55%": {
+            opacity: 1
+        },
+        "55.1%": {
+            opacity: 0
+        },
+        "57%": {
+            opacity: 0
+        },
+        "57.1%": {
+            opacity: 1
+        },
+        "60%": {
+            opacity: 1
+        },
+        "60.1%": {
+            opacity: 0
+        },
+        "65%": {
+            opacity: 0
+        },
+        "65.1%": {
+            opacity: 1
+        },
+        "75%": {
+            opacity: 1
+        },
+        "75.1%": {
+            opacity: 0
+        },
+        "77% ": {
+            opacity: 0
+        },
+        "77.1%": {
+            opacity: 1
+        },
+        "85% ": {
+            opacity: 1
+        },
+        "85.1%": {
+            opacity: 0
+        },
+        "86% ": {
+            opacity: 0
+        },
+        "86.1%": {
+            opacity: 1
+        },
+        "100%": {
+            transform: 'rotateX(0) translateY(-200px) scale(1)',
+            opacity: 1
+        },
+    },
+    alienFlickLittle: {
+        "0%": {
+            transform: 'rotateX(0) translateY(-100px) scale(1)',
+            opacity: 0
+        },
+        "10%": {
+            opacity: 0
+        },
+        "10.1%": {
+            opacity: 1
+        },
+        "10.2%": {
+            opacity: 0
+        },
+        "20%": {
+            opacity: 0
+        },
+        "20.1%": {
+            opacity: 1
+        },
+        "20.6%": {
+            opacity: 0
+        },
+        " 30%": {
+            opacity: 0
+        },
+        "30.1%": {
+            opacity: 1
+        },
+        "30.5%": {
+            opacity: 1
+        },
+        "30.6%": {
+            opacity: 0
+        },
+        " 45% ": {
+            opacity: 0
+        },
+        "45.1%": {
+            opacity: 1
+        },
+        "50% ": {
+            opacity: 1
+        },
+        "55%": {
+            opacity: 1
+        },
+        "55.1%": {
+            opacity: 0
+        },
+        "57%": {
+            opacity: 0
+        },
+        "57.1%": {
+            opacity: 1
+        },
+        "60%": {
+            opacity: 1
+        },
+        "60.1%": {
+            opacity: 0
+        },
+        "65%": {
+            opacity: 0
+        },
+        "65.1%": {
+            opacity: 1
+        },
+        "75%": {
+            opacity: 1
+        },
+        "75.1%": {
+            opacity: 0
+        },
+        "77% ": {
+            opacity: 0
+        },
+        "77.1%": {
+            opacity: 1
+        },
+        "85% ": {
+            opacity: 1
+        },
+        "85.1%": {
+            opacity: 0
+        },
+        "86% ": {
+            opacity: 0
+        },
+        "86.1%": {
+            opacity: 1
+        },
+        "100%": {
+            transform: 'rotateX(0) translateY(-100px) scale(1)',
+            opacity: 1
+        },
+    },
+
 }
 
 export const BEN10_ANIMATIONS = {
@@ -502,18 +737,28 @@ export const BEN10_ANIMATIONS = {
     'omnitrixOutDiamond': 'omnitrixOutDiamond 2s ease-in-out 1 forwards',
     "omnitrixCoverOmniverseIn": "omnitrixCoverOmniverseIn 1s ease-in-out 1 forwards",
     "omnitrixCoverOmniverseOut": "omnitrixCoverOmniverseOut 2s ease-in-out 1 forwards",
+    "omnitrixCoverOmniverseInLittle": "omnitrixCoverOmniverseInLittle 1s ease-in-out 1 forwards",
+    "omnitrixCoverOmniverseOutLittle": "omnitrixCoverOmniverseOutLittle 2s ease-in-out 1 forwards",
     'fadeIn': "fadeIn 1s ease-in-out 1 forwards",
     "fadeInLowerSelector": "fadeIn 2s ease-in-out forwards",
-    'fadeOut': "fadeOut 1s ease-in-out 1 forwards",
+    'fadeOut': "fadeOut 1s ease-out 1 forwards",
     "omnitrixRunOutTop": "omnitrixRunOutTop 2s ease-in-out 1 forwards",
     "omnitrixRunOutBottom": "omnitrixRunOutBottom 2s ease-in-out 1 forwards",
     "omnitrixRotateDown": "omnitrixRotateDown 1s ease-in-out forwards",
     "omnitrixRotateUp": "omnitrixRotateUp 1s ease-in-out forwards",
     "alienRotateUpLittle": "alienRotateUpLittle 1s ease-in-out forwards",
+
+    "alienFlick": "alienFlick 1s ease-in-out forwards",
+    "alienFlickLittle": "alienFlickLittle 1s ease-in-out forwards",
+
+    "alienNormalOut": "alienNormalOut 2s ease-in-out forwards",
+
     "alienRotateUp": "alienRotateUp 1s ease-in-out forwards",
     "scaleRingCenter": "fadeIn 2s ease-in-out forwards",
 
-    "backgroundBen10": "backgroundBen10 2s ease-in-out 1 forwards",
+    "ultimateAlienActivate": "ultimateAlienActivate 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both",
+
+    "transformIntoAlien": "transformIntoAlien 3s ease-in-out forwards",
 }
 
 export const BEN10_THEMES = {

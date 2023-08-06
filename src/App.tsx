@@ -1,13 +1,14 @@
-// import OmnitrixOriginal from "./components/OmnitrixOriginal"
-// import OmnitrixUltimate from "./components/OmnitrixUltimate"
+import OmnitrixOriginal from "./components/OmnitrixOriginal"
+import OmnitrixUltimate from "./components/OmnitrixUltimate"
 import OmnitrixOmniverse from "./components/OmnitrixOmniverse"
+import OmnitrixAlienForce from "./components/OmnitrixAlienForce"
 
 function App() {
   return (
     <div>
-      {/* <Omnitrixes /> */}
-      {/* <OmnitrixOriginal/> */}
-      {/* <OmnitrixUltimate /> */}
+      <OmnitrixOriginal/>
+      <OmnitrixAlienForce/>
+      <OmnitrixUltimate />
       <OmnitrixOmniverse/>
     </div>
   )
