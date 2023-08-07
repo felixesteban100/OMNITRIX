@@ -1,6 +1,6 @@
 import /* React, */ { useState, useEffect } from 'react'
-import { ALL_ALIENS_ALIEN_FORCE } from '../constants';
-import { Alien } from '../types';
+import { ALL_ALIENS_ALIEN_FORCE } from './constants';
+import { Alien } from './types';
 import ultimate_openSelector from '/omnitrixSoundEffects/ultimate/ultimate_openSelector.mp3'
 import ultimate_selectOtherAlien from '/omnitrixSoundEffects/ultimate/ultimate_selectOtherAlien.mp3'
 import ultimate_transform from '/omnitrixSoundEffects/ultimate/ultimate_transform.mp3'
@@ -15,6 +15,7 @@ function OmnitrixAlienForce() {
     const [flashingLights, setFlashingLights] = useState<boolean>(false)
 
     const [transformAnimation, setTransformAnimation] = useState<boolean>(false)
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     useEffect(() => {
         if (!toogleInvertValue) {
@@ -24,6 +25,21 @@ function OmnitrixAlienForce() {
             }, 5000)
         }
     }, [toogleInvertValue, currentAlienInView])
+
+
+    const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+    };
+
+    useEffect(() => {
+        // Add event listener to track window resize
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup function to remove the event listener when the component unmounts
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    });
 
 
     function changeAlienByNumber(num: number | null): void {
@@ -68,8 +84,11 @@ function OmnitrixAlienForce() {
                     alienTransformed && currentAlienInView ?
                         ALL_ALIENS.map((currentAlien) => {
                             if (currentAlien === currentAlienInView) {
+                                // const alien = window.innerWidth > 500 ? currentAlienInView : currentAlienInView.little
+                                console.log()
+
                                 return (
-                                    <div className={`w-[100%] absolute z-50 h-0 flex justify-center items-center translate-y-80`}>
+                                    <div key={currentAlienInView.name} className={`w-[100%] absolute z-50 h-0 flex justify-center items-center translate-y-80`}>
                                         <img
                                             style={
                                                 toogleInvertValue ?
@@ -78,13 +97,13 @@ function OmnitrixAlienForce() {
                                                     {}
                                             }
                                             className={
-                                                `${currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[40rem] "}
-                                            drop-shadow-2xl 
-                                            contrast-200
-                                            hover:contrast-100 
-                                            ${toogleInvertValue ? "animate-alienFlickLittle lg:animate-alienFlick" : "animate-fadeIn translate-y-[-100px] lg:translate-y-[-200px]"}`
+                                                `${windowWidth < 800 ? (currentAlienInView?.little?.height?.character !== undefined ? `${currentAlienInView?.little?.height.character}` : "h-[30rem] lg:h-[40rem]") : currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[40rem]"}
+                                                drop-shadow-2xl 
+                                                contrast-200
+                                                hover:contrast-100 
+                                                ${toogleInvertValue ? "animate-alienFlickLittle lg:animate-alienFlick" : "animate-fadeIn translate-y-[-100px] lg:translate-y-[-200px]"}`
                                             }
-                                            src={currentAlienInView?.img ? currentAlienInView.img : ""}
+                                            src={windowWidth < 800 ? (currentAlienInView?.little?.img ? currentAlienInView?.little?.img : "") : (currentAlienInView?.img ? currentAlienInView.img : "")}
                                             alt={currentAlienInView.name}
                                         />
                                     </div>
@@ -124,7 +143,7 @@ function OmnitrixAlienForce() {
                                         }
                                         setFlashingLights(false)
                                     }}
-                                    className={`absolute btn hover:bg-gray-400  ${alienTransformed ? "" : ""} w-[45rem] h-[5rem] lg:w-[50rem] lg:h-[5rem] bg-accent rounded-3xl`}
+                                    className={`absolute btn hover:bg-gray-400  ${alienTransformed ? "" : ""} w-[5rem] h-[45rem] lg:w-[50rem] lg:h-[5rem] bg-accent rounded-3xl`}
                                 />
                                 <div
                                     onClick={() => {
