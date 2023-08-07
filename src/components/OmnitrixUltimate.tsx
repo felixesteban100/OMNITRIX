@@ -1,6 +1,6 @@
 import /* React, */ { useEffect, useState } from 'react'
-import { ALL_ALIENS_ULTIMATE } from '../constants';
-import { Alien } from '../types';
+import { ALL_ALIENS_ULTIMATE } from './constants';
+import { Alien } from './types';
 import ultimate_openSelector from '/omnitrixSoundEffects/ultimate/ultimate_openSelector.mp3'
 import ultimate_selectOtherAlien from '/omnitrixSoundEffects/ultimate/ultimate_selectOtherAlien.mp3'
 import ultimate_transform from '/omnitrixSoundEffects/ultimate/ultimate_transform.mp3'
@@ -17,7 +17,7 @@ function OmnitrixUltimate() {
 
     const [activateUltimate, setActivateUltimate] = useState<boolean>(false)
     const [transformAnimation, setTransformAnimation] = useState<boolean>(false)
-
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     useEffect(() => {
         if (!toogleInvertValue) {
@@ -27,6 +27,20 @@ function OmnitrixUltimate() {
             }, 5000)
         }
     }, [toogleInvertValue, currentAlienInView])
+
+    const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+    };
+
+    useEffect(() => {
+        // Add event listener to track window resize
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup function to remove the event listener when the component unmounts
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    });
 
     function changeAlienByNumber(num: number | null): void {
         if (num !== null) setCurrentAlienInView(ALL_ALIENS[num])
@@ -52,11 +66,48 @@ function OmnitrixUltimate() {
         if (previousAlien > -1) changeAlienByNumber(previousAlien)
     }
 
+
+    function buttonSelector() {
+        setActivateUltimate(false)
+        if (alienTransformed) {
+            setAlienTransformed(false)
+            new Audio(ultimate_untransform).play()
+            setToogleInvertValue(true)
+        }
+        if (!alienTransformed) {
+            setAlienTransformed(true)
+            if (toogleInvertValue) {
+                new Audio(ultimate_openSelector).play()
+            } else {
+                new Audio(ultimate_transform).play()
+            }
+        }
+        setFlashingLights(false)
+    }
+
     function activateFlashingLights() {
         setFlashingLights(true)
         setInterval(() => {
             setFlashingLights(false)
         }, 5000)
+    }
+
+    function activate() {
+        activateFlashingLights()
+        if (activateUltimate) {
+            setActivateUltimate(false)
+            return
+        }
+
+        if (alienTransformed) {
+            setToogleInvertValue(prev => !prev)
+            if (!toogleInvertValue) new Audio(ultimate_untransform).play()
+            if (toogleInvertValue) new Audio(ultimate_transform).play()
+        }
+
+        if (currentAlienInView === null) {
+            setCurrentAlienInView(ALL_ALIENS[Math.floor(Math.random() * ALL_ALIENS.length - 1)])
+        }
     }
 
 
@@ -87,14 +138,22 @@ function OmnitrixUltimate() {
                                                 // hover:brightness-110 
                                                 // ${currentAlienInView.name === 'feedback' ? "hover:brightness-150" : ""}
                                                 //ml-[5rem] lg:ml-[10rem]
+                                                // className={
+                                                //     `${currentAlienInView.ultimate && "cursor-pointer"} 
+                                                //     ${currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[40rem] "}
+                                                //     drop-shadow-2xl 
+                                                //     hover:contrast-200
+                                                //     ${activateUltimate ? "animate-alienNormalOut translate-y-[-100px] lg:translate-y-[-200px]" : toogleInvertValue ? "animate-alienFlickLittle lg:animate-alienFlick" : "animate-fadeIn translate-y-[-100px] lg:translate-y-[-200px]"}`
+                                                // }
                                                 className={
-                                                    `${currentAlienInView.ultimate && "cursor-pointer"} 
-                                                    ${currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[40rem] "}
+                                                    `${windowWidth < 1500 ? (currentAlienInView?.little?.height?.character !== undefined ? `${currentAlienInView?.little?.height.character}` : "h-[30rem] lg:h-[40rem]") : currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[40rem]"}
                                                     drop-shadow-2xl 
-                                                    hover:contrast-200
+                                                    contrast-200
+                                                    hover:contrast-100 
                                                     ${activateUltimate ? "animate-alienNormalOut translate-y-[-100px] lg:translate-y-[-200px]" : toogleInvertValue ? "animate-alienFlickLittle lg:animate-alienFlick" : "animate-fadeIn translate-y-[-100px] lg:translate-y-[-200px]"}`
                                                 }
-                                                src={currentAlienInView.img}
+                                                // src={currentAlienInView.img}
+                                                src={windowWidth < 1500 ? (currentAlienInView.little?.img ? currentAlienInView.little?.img : "") : (currentAlienInView?.img ? currentAlienInView?.img : "")}
                                                 alt={currentAlienInView.name}
                                                 onClick={() => {
                                                     if (currentAlienInView.ultimate && !toogleInvertValue) {
@@ -108,12 +167,12 @@ function OmnitrixUltimate() {
                                                 }}
                                             />
                                             {
-                                                (currentAlien === currentAlienInView && currentAlienInView.ultimate /* && activateUltimate  */&& !toogleInvertValue) ?
+                                                (currentAlien === currentAlienInView && currentAlienInView.ultimate /* && activateUltimate  */ && !toogleInvertValue) ?
                                                     <img
-                                                    // ${activateUltimate ? "animate-fadeInLowerSelector" : "animate-fadeOut transition-all ease-out"}
+                                                        // ${activateUltimate ? "animate-fadeInLowerSelector" : "animate-fadeOut transition-all ease-out"}
                                                         className={
                                                             `${currentAlienInView.ultimate && "cursor-pointer"} 
-                                                            ${currentAlienInView.ultimate?.height?.character ? `${currentAlienInView.ultimate.height.character}` : "h-[30rem] lg:h-[40rem] "}
+                                                            ${windowWidth < 1500 ? (currentAlienInView.little?.ultimate?.height?.character !== undefined ? `${currentAlienInView.little?.ultimate?.height?.character}` : "h-[30rem] lg:h-[40rem]") : currentAlienInView.ultimate?.height?.character !== undefined ? `${currentAlienInView.ultimate?.height?.character}` : "h-[30rem] lg:h-[40rem]"}
                                                             absolute
                                                             drop-shadow-2xl 
                                                             hover:contrast-200
@@ -121,7 +180,16 @@ function OmnitrixUltimate() {
                                                             ${activateUltimate ? "animate-fadeInLowerSelector" : "hidden"}
                                                             `
                                                         }
-                                                        src={currentAlienInView.ultimate.img}
+                                                        // className={
+                                                        //     `${windowWidth < 1500 ? (currentAlienInView.little?.ultimate?.height?.character !== undefined ? `${currentAlienInView.little?.ultimate?.height?.character}` : "h-[30rem] lg:h-[40rem]") : currentAlienInView.ultimate?.height?.character !== undefined ? `${currentAlienInView.ultimate?.height?.character}` : "h-[30rem] lg:h-[40rem]"}
+                                                        //     absolute
+                                                        //     drop-shadow-2xl 
+                                                        //     contrast-200
+                                                        //     hover:contrast-100 
+                                                        //     ${activateUltimate ? "animate-fadeInLowerSelector" : "hidden"}`
+                                                        // }
+                                                        // src={currentAlienInView.ultimate.img}
+                                                        src={windowWidth < 1500 ? (currentAlienInView.little?.ultimate?.img ? currentAlienInView.little?.ultimate?.img : "") : (currentAlienInView.ultimate?.img ? currentAlienInView.ultimate?.img : "")}
                                                         alt={currentAlienInView.ultimate.name}
                                                         onClick={() => {
                                                             if (currentAlienInView.ultimate && !toogleInvertValue) {
@@ -154,23 +222,7 @@ function OmnitrixUltimate() {
                         <div className='self-center -mr-5 md:mr-[5rem] lg:mr-[2rem] rounded-md bg-accent w-[8rem] h-[12rem] lg:h-[10rem] lg:w-[15rem] flex justify-center items-center'>
                             <div
                                 className={`btn w-[7rem] h-[10rem] lg:w-[12rem] lg:h-28 rounded-md btn-neutral`}
-                                onClick={() => {
-                                    setActivateUltimate(false)
-                                    if (alienTransformed) {
-                                        setAlienTransformed(false)
-                                        new Audio(ultimate_untransform).play()
-                                        setToogleInvertValue(true)
-                                    }
-                                    if (!alienTransformed) {
-                                        setAlienTransformed(true)
-                                        if (toogleInvertValue) {
-                                            new Audio(ultimate_openSelector).play()
-                                        } else {
-                                            new Audio(ultimate_transform).play()
-                                        }
-                                    }
-                                    setFlashingLights(false)
-                                }}
+                                onClick={() => buttonSelector()}
                             />
                         </div>
                         <div className={`h-56 w-[80%] hidden bg-black rounded-md md:flex md:flex-col gap-28 justify-center items-center`}>
@@ -181,9 +233,9 @@ function OmnitrixUltimate() {
 
                     <div className='flex justify-center items-center'>
                         <div className='relative flex justify-center items-center'>
-                            <div 
+                            <div
                                 className={`flex gap-5 ${activateUltimate ? "animate-scaleInCenter" : "animate-scaleOutCenter"}`}
-                                // className={`flex gap-5 transition-all ${activateUltimate ? "animate-scaleInCenter scale-1" : "ease-out scale-0"} `}
+                            // className={`flex gap-5 transition-all ${activateUltimate ? "animate-scaleInCenter scale-1" : "ease-out scale-0"} `}
                             >
                                 <div className={`bg-gray-500 h-[50rem] w-[10rem] rotate-45 transition-all duration-500 `}></div>
                                 <div className={`absolute bg-gray-500 h-[50rem] w-[10rem] -rotate-45 transition-all duration-500`}></div>
@@ -207,6 +259,9 @@ function OmnitrixUltimate() {
                                         if (toogleInvertValue) new Audio(ultimate_selectOtherAlien).play()
                                         if (!toogleInvertValue) new Audio(ultimate_transform).play()
                                     }
+                                    if (activateUltimate) {
+                                        new Audio(ultimate_untransform).play()
+                                    }
                                 }}
                                 className={`absolute btn bg-current hover:bg-current  ${alienTransformed ? "" : ""} w-[28rem] h-[28rem] lg:w-[35rem] lg:h-[35rem] rounded-full bg-accent flex justify-end items-end`}
                             />
@@ -216,13 +271,14 @@ function OmnitrixUltimate() {
                             className={`absolute w-[25rem] h-[25rem] lg:w-[30rem] lg:h-[30rem] rounded-full bg-black flex justify-center items-center  `}
                         />
                         <Ben10Logo
-                            activateFlashingLights={activateFlashingLights}
                             flashingLights={flashingLights}
+                            activate={activate}
+                            /* activateFlashingLights={activateFlashingLights}
                             toogleInvertValue={toogleInvertValue}
                             setToogleInvertValue={setToogleInvertValue}
                             alienTransformed={alienTransformed}
                             currentAlienInView={currentAlienInView}
-                            setCurrentAlienInView={setCurrentAlienInView}
+                            setCurrentAlienInView={setCurrentAlienInView} */
                         />
                     </div>
                 </div>
@@ -239,28 +295,16 @@ function OmnitrixUltimate() {
 }
 
 type Ben10LogoProps = {
-    activateFlashingLights: () => void
     flashingLights: boolean
-    toogleInvertValue: boolean
-    setToogleInvertValue: React.Dispatch<React.SetStateAction<boolean>>
-    alienTransformed: boolean;
-    setCurrentAlienInView: React.Dispatch<React.SetStateAction<Alien | null>>;
-    currentAlienInView: Alien | null;
+    // activateFlashingLights: () => void
+    // toogleInvertValue: boolean
+    // setToogleInvertValue: React.Dispatch<React.SetStateAction<boolean>>
+    // alienTransformed: boolean;
+    // setCurrentAlienInView: React.Dispatch<React.SetStateAction<Alien | null>>;
+    // currentAlienInView: Alien | null;
+    activate: () => void
 }
-function Ben10Logo({ activateFlashingLights, flashingLights, toogleInvertValue, setToogleInvertValue, alienTransformed, currentAlienInView, setCurrentAlienInView }: Ben10LogoProps) {
-    function activate() {
-        activateFlashingLights()
-        if (alienTransformed) {
-            setToogleInvertValue(prev => !prev)
-            if (!toogleInvertValue) new Audio(ultimate_untransform).play()
-            if (toogleInvertValue) new Audio(ultimate_transform).play()
-        }
-
-        if(currentAlienInView === null){
-            setCurrentAlienInView(ALL_ALIENS[Math.floor(Math.random() * ALL_ALIENS.length - 1)])
-        }
-    }
-
+function Ben10Logo({ flashingLights, activate }: Ben10LogoProps) {
     return (
         <div
             onClick={() => activate()}
