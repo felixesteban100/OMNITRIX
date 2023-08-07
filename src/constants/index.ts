@@ -1,4 +1,4 @@
-import { Alien } from "../types";
+import { Alien } from "./types";
 
 //https://www.google.com/search?q=all+ben+10+aliens+first+appearance&client=opera-gx&hs=awI&bih=927&biw=970&hl=en&sxsrf=AB5stBjj-1S2HzAALrtoDaEEh2lrLLrRWA%3A1690040313472&ei=-fe7ZLqxHIPj5NoPlIqosAg&oq=all+ben+10+aliens+first+&gs_lp=Egxnd3Mtd2l6LXNlcnAiGGFsbCBiZW4gMTAgYWxpZW5zIGZpcnN0ICoCCAAyBRAhGKABSIxYUMEdWPRNcAF4AZABAJgB-gGgAdcNqgEGMS4xMS4xuAEDyAEA-AEBwgIKEAAYRxjWBBiwA8ICBxAjGIoFGCfCAggQABiKBRiRAsICBRAAGIAEwgIFEC4YgATCAgcQIxiwAhgnwgIHEAAYDRiABMICBxAuGA0YgATCAgYQABgHGB7CAgcQABiKBRhDwgIKEAAYgAQYFBiHAsICBhAAGBYYHsICCBAAGIoFGIYD4gMEGAAgQYgGAZAGCA&sclient=gws-wiz-serp
 export const ALL_ALIENS_OG: Alien[] = [
@@ -427,15 +427,6 @@ export const ALL_ALIENS_ALIEN_FORCE: Alien[] = [
             character: 'h-[22rem] mt-[10rem] lg:mt-[20rem]'
         }
     },
-    // {
-    //     name: 'bigChill',
-    //     img: '/aliens/alien_force/bigChill.png',
-    //     height: {
-    //         // character: 'h-[30rem] ml-[10rem] lg:ml-[25rem] lg:h-[50rem] mt-[5rem] lg:-mt-[5rem]'
-    //         character: 'h-[35rem] lg:h-[40rem] mt-[5rem] lg:mt-[5rem]'
-            
-    //     },
-    // },
     {
         name: 'bigChill-L',
         img: '/aliens/alien_force/bigChill-L.png',
@@ -443,6 +434,15 @@ export const ALL_ALIENS_ALIEN_FORCE: Alien[] = [
             character: 'h-[40rem] ml-[10rem] lg:ml-[15rem] lg:h-[50rem] mt-[5rem] lg:-mt-[5rem]'
             // character: 'h-[35rem] lg:h-[40rem] mt-[5rem] lg:mt-[5rem]'
             
+        },
+        little: {
+            name: 'bigChill',
+            img: '/aliens/alien_force/bigChill.png',
+            height: {
+                // character: 'h-[30rem] ml-[10rem] lg:ml-[25rem] lg:h-[50rem] mt-[5rem] lg:-mt-[5rem]'
+                character: 'h-[35rem] lg:h-[40rem] -mt-[5rem] lg:mt-[5rem]'
+                
+            },
         },
     },
     {
@@ -482,17 +482,6 @@ export const ALL_ALIENS_ALIEN_FORCE: Alien[] = [
         name: 'Lodestar',
         img: '/aliens/alien_force/Lodestar.webp'
     },
-    /* {
-        name: 'cannonbolt',
-        img: '/aliens/alien_force/cannonbolt.png'
-    },
-    {
-        name: 'Upchuck',
-        img: '/aliens/alien_force/Upchuck.png',
-        height: {
-            character: 'h-[23rem] mt-[10rem] lg:mt-[15rem]'
-        }
-    }, */
     {
         name: 'Nanomech',
         img: '/aliens/alien_force/Nanomech.png',
@@ -504,17 +493,6 @@ export const ALL_ALIENS_ALIEN_FORCE: Alien[] = [
         name: 'Rath',
         img: '/aliens/alien_force/rath.png'
     },
-    /* {
-        name: 'Diamondhead',
-        img: '/aliens/alien_force/diamondhead.png'
-    },
-    {
-        name: 'WayBig',
-        img: '/aliens/alien_force/WayBig.png',
-        height: {
-            character: 'h-[50rem] -mt-[15rem] lg:-mt-[10rem]'
-        }
-    }, */
 ]
 // .sort(() => Math.random() - 0.5) //shuffle array
 
@@ -698,26 +676,7 @@ export const ALL_ALIENS_ULTIMATE: Alien[] = [
             },
         }
     },
-    // {
-    //     name: 'bigChill',
-    //     img: '/aliens/alien_force/bigChill.png',
-    //     height: {
-    //         // silouette: 'h-[20rem] lg:h-[18rem]',
-    //         // character: 'h-[30rem] ml-[10rem] lg:ml-[25rem] lg:h-[50rem] mt-[5rem] lg:-mt-[5rem]'
-    //         character: 'h-[35rem] lg:h-[40rem] mt-[5rem] lg:mt-[5rem]'
-            
-    //     },
-    //     ultimate: {
-    //         name: 'Ultimate_Big_Chill',
-    //         img: '/aliens/ultimate/Ultimate_Big_Chill.png',
-    //         height: {
-    //             // silouette: 'h-[20rem] lg:h-[18rem]',
-    //             // character: 'h-[30rem] ml-[10rem] lg:ml-[18rem] lg:h-[50rem] mt-[5rem] lg:-mt-[5rem]'
-    //             character: 'h-[35rem] lg:h-[40rem] mt-[5rem] lg:mt-[5rem]'
-
-    //         },
-    //     }
-    // },
+    
     {
         name: 'bigChill-L',
         img: '/aliens/alien_force/bigChill-L.png',
@@ -736,7 +695,27 @@ export const ALL_ALIENS_ULTIMATE: Alien[] = [
                 // character: 'h-[35rem] lg:h-[40rem] mt-[5rem] lg:mt-[5rem]'
 
             },
-        }
+        },
+        little: {
+            name: 'bigChill',
+            img: '/aliens/alien_force/bigChill.png',
+            height: {
+                // silouette: 'h-[20rem] lg:h-[18rem]',
+                // character: 'h-[30rem] ml-[10rem] lg:ml-[25rem] lg:h-[50rem] mt-[5rem] lg:-mt-[5rem]'
+                character: 'h-[35rem] lg:h-[40rem] mt-[5rem] lg:mt-[5rem]'
+                
+            },
+            ultimate: {
+                name: 'Ultimate_Big_Chill',
+                img: '/aliens/ultimate/Ultimate_Big_Chill.png',
+                height: {
+                    // silouette: 'h-[20rem] lg:h-[18rem]',
+                    // character: 'h-[30rem] ml-[10rem] lg:ml-[18rem] lg:h-[50rem] mt-[5rem] lg:-mt-[5rem]'
+                    character: 'h-[35rem] lg:h-[40rem] mt-[5rem] lg:mt-[5rem]'
+    
+                },
+            }
+        },
     },
     {
         name: 'Humungousaur',
