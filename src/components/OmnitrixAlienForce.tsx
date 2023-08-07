@@ -1,6 +1,6 @@
 import /* React, */ { useState, useEffect } from 'react'
-import { ALL_ALIENS_ALIEN_FORCE } from './constants';
-import { Alien } from './types';
+import { ALL_ALIENS_ALIEN_FORCE } from '../constants';
+import { Alien } from '../types';
 import ultimate_openSelector from '/omnitrixSoundEffects/ultimate/ultimate_openSelector.mp3'
 import ultimate_selectOtherAlien from '/omnitrixSoundEffects/ultimate/ultimate_selectOtherAlien.mp3'
 import ultimate_transform from '/omnitrixSoundEffects/ultimate/ultimate_transform.mp3'
