@@ -97,13 +97,13 @@ function OmnitrixAlienForce() {
                                                     {}
                                             }
                                             className={
-                                                `${windowWidth < 800 ? (currentAlienInView?.little?.height?.character !== undefined ? `${currentAlienInView?.little?.height.character}` : "h-[30rem] lg:h-[40rem]") : currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[40rem]"}
+                                                `${windowWidth < 800 && currentAlienInView.little?.height ? (currentAlienInView.little.height.character !== undefined ? `${currentAlienInView.little.height.character}` : "h-[30rem] lg:h-[40rem]") : currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[40rem]"}
                                                 drop-shadow-2xl 
                                                 contrast-200
                                                 hover:contrast-100 
                                                 ${toogleInvertValue ? "animate-alienFlickLittle lg:animate-alienFlick" : "animate-fadeIn translate-y-[-100px] lg:translate-y-[-200px]"}`
                                             }
-                                            src={windowWidth < 800 ? (currentAlienInView?.little?.img ? currentAlienInView?.little?.img : "") : (currentAlienInView?.img ? currentAlienInView.img : "")}
+                                            src={windowWidth < 800 && currentAlienInView.little ? (currentAlienInView.little.img ? currentAlienInView.little.img : "") : (currentAlienInView.img ? currentAlienInView.img : "")}
                                             alt={currentAlienInView.name}
                                         />
                                     </div>
