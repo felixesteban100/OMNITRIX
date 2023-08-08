@@ -172,7 +172,7 @@ function OmnitrixUltimate() {
                                                         // ${activateUltimate ? "animate-fadeInLowerSelector" : "animate-fadeOut transition-all ease-out"}
                                                         className={
                                                             `${currentAlienInView.ultimate && "cursor-pointer"} 
-                                                            ${windowWidth < 1500 ? (currentAlienInView.little?.ultimate?.height?.character !== undefined ? `${currentAlienInView.little?.ultimate?.height?.character}` : "h-[30rem] lg:h-[40rem]") : currentAlienInView.ultimate?.height?.character !== undefined ? `${currentAlienInView.ultimate?.height?.character}` : "h-[30rem] lg:h-[40rem]"}
+                                                            ${(windowWidth < 1500 && currentAlienInView.little?.ultimate?.height) ? (currentAlienInView.little?.ultimate?.height?.character !== undefined ? `${currentAlienInView.little?.ultimate?.height?.character}` : "h-[30rem] lg:h-[40rem]") : currentAlienInView.ultimate?.height?.character !== undefined ? `${currentAlienInView.ultimate?.height?.character}` : "h-[30rem] lg:h-[40rem]"}
                                                             absolute
                                                             drop-shadow-2xl 
                                                             hover:contrast-200
@@ -189,7 +189,7 @@ function OmnitrixUltimate() {
                                                         //     ${activateUltimate ? "animate-fadeInLowerSelector" : "hidden"}`
                                                         // }
                                                         // src={currentAlienInView.ultimate.img}
-                                                        src={windowWidth < 1500 ? (currentAlienInView.little?.ultimate?.img ? currentAlienInView.little?.ultimate?.img : "") : (currentAlienInView.ultimate?.img ? currentAlienInView.ultimate?.img : "")}
+                                                        src={(windowWidth < 1500 && currentAlienInView.little?.ultimate?.height) ? (currentAlienInView.little?.ultimate?.img ? currentAlienInView.little?.ultimate?.img : "") : (currentAlienInView.ultimate?.img ? currentAlienInView.ultimate?.img : "")}
                                                         alt={currentAlienInView.ultimate.name}
                                                         onClick={() => {
                                                             if (currentAlienInView.ultimate && !toogleInvertValue) {
