@@ -321,12 +321,12 @@ export const ALL_ALIENS_ALIEN_FORCE: Alien[] = [
     {
         name: 'Ripjaws',
         img: '/aliens/ultimate/ripjaws.png',
-    },
+    },*/
     {
         name: 'Diamondhead',
         img: '/aliens/alien_force/diamondhead.png'
     },
-    {
+    /*{
         name: 'stikfly',
         img: '/aliens/ultimate/stikfly.png',
     },
