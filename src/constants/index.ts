@@ -289,7 +289,7 @@ export const ALL_ALIENS_OG_OMNIVERSE: Alien[] = [
 
 export const ALL_ALIENS_ALIEN_FORCE: Alien[] = [
     //OG
-    {
+    /*{
         name: 'wildmutt',
         img: '/aliens/ultimate/wildmutt.png',
         height: {
@@ -344,12 +344,12 @@ export const ALL_ALIENS_ALIEN_FORCE: Alien[] = [
     {
         name: 'heatblast',
         img: '/aliens/ultimate/heatblast.png',
-    },
+    },*/
     {
         name: 'cannonbolt',
         img: '/aliens/alien_force/cannonbolt.png',
     },
-    {
+    /*{
         name: 'wildvine',
         img: '/aliens/ultimate/wildvine.png',
     },
@@ -386,7 +386,7 @@ export const ALL_ALIENS_ALIEN_FORCE: Alien[] = [
     {
         name: 'frankenstrike2',
         img: '/aliens/ultimate/frankenstrike2.png',
-    },
+    },*/
     {
         name: 'Upchuck',
         img: '/aliens/alien_force/Upchuck.png',
@@ -394,7 +394,7 @@ export const ALL_ALIENS_ALIEN_FORCE: Alien[] = [
             character: 'h-[23rem] mt-[15rem] lg:mt-[20rem]'
         }
     },
-    {
+    /*{
         name: 'ditto',
         img: '/aliens/ultimate/ditto.png',
         height: {
@@ -404,7 +404,7 @@ export const ALL_ALIENS_ALIEN_FORCE: Alien[] = [
     {
         name: 'eye_guy',
         img: '/aliens/ultimate/eye_guy.png',
-    },
+    },*/
     {
         name: 'WayBig',
         img: '/aliens/alien_force/WayBig.png',
