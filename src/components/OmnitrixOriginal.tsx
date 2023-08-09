@@ -15,7 +15,7 @@ function OmnitrixOriginal() {
     const [currentAlienInView, setCurrentAlienInView] = useState<Alien | null>(null)
     const [flashingLights, setFlashingLights] = useState<boolean>(false)
 
-    const [recharged, setRecharged] = useState(false)
+    const [recharged, setRecharged] = useState(true)
 
     const [transformAnimation, setTransformAnimation] = useState<boolean>(false)
 
