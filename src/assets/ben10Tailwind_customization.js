@@ -524,7 +524,7 @@ export const BEN10_KEYFRAMES = {
 
     alienFlick: {
         "0%": {
-            transform: 'rotateX(0) translateY(-200px) scale(1)',
+            // transform: 'rotateX(0) translateY(-200px) scale(1)',
             opacity: 0
         },
         "10%": {
@@ -615,108 +615,10 @@ export const BEN10_KEYFRAMES = {
             opacity: 1
         },
         "100%": {
-            transform: 'rotateX(0) translateY(-200px) scale(1)',
+            // transform: 'rotateX(0) translateY(-200px) scale(1)',
             opacity: 1
         },
     },
-    alienFlickLittle: {
-        "0%": {
-            transform: 'rotateX(0) translateY(-100px) scale(1)',
-            opacity: 0
-        },
-        "10%": {
-            opacity: 0
-        },
-        "10.1%": {
-            opacity: 1
-        },
-        "10.2%": {
-            opacity: 0
-        },
-        "20%": {
-            opacity: 0
-        },
-        "20.1%": {
-            opacity: 1
-        },
-        "20.6%": {
-            opacity: 0
-        },
-        " 30%": {
-            opacity: 0
-        },
-        "30.1%": {
-            opacity: 1
-        },
-        "30.5%": {
-            opacity: 1
-        },
-        "30.6%": {
-            opacity: 0
-        },
-        " 45% ": {
-            opacity: 0
-        },
-        "45.1%": {
-            opacity: 1
-        },
-        "50% ": {
-            opacity: 1
-        },
-        "55%": {
-            opacity: 1
-        },
-        "55.1%": {
-            opacity: 0
-        },
-        "57%": {
-            opacity: 0
-        },
-        "57.1%": {
-            opacity: 1
-        },
-        "60%": {
-            opacity: 1
-        },
-        "60.1%": {
-            opacity: 0
-        },
-        "65%": {
-            opacity: 0
-        },
-        "65.1%": {
-            opacity: 1
-        },
-        "75%": {
-            opacity: 1
-        },
-        "75.1%": {
-            opacity: 0
-        },
-        "77% ": {
-            opacity: 0
-        },
-        "77.1%": {
-            opacity: 1
-        },
-        "85% ": {
-            opacity: 1
-        },
-        "85.1%": {
-            opacity: 0
-        },
-        "86% ": {
-            opacity: 0
-        },
-        "86.1%": {
-            opacity: 1
-        },
-        "100%": {
-            transform: 'rotateX(0) translateY(-100px) scale(1)',
-            opacity: 1
-        },
-    },
-
 }
 
 export const BEN10_ANIMATIONS = {
@@ -749,7 +651,6 @@ export const BEN10_ANIMATIONS = {
     "alienRotateUpLittle": "alienRotateUpLittle 1s ease-in-out forwards",
 
     "alienFlick": "alienFlick 1s ease-in-out forwards",
-    "alienFlickLittle": "alienFlickLittle 1s ease-in-out forwards",
 
     "alienNormalOut": "alienNormalOut 2s ease-in-out forwards",
 
