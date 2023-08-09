@@ -84,9 +84,6 @@ function OmnitrixAlienForce() {
                     alienTransformed && currentAlienInView ?
                         ALL_ALIENS.map((currentAlien) => {
                             if (currentAlien === currentAlienInView) {
-                                // const alien = window.innerWidth > 500 ? currentAlienInView : currentAlienInView.little
-                                console.log()
-
                                 return (
                                     <div key={currentAlienInView.name} className={`w-[100%] absolute z-50 h-0 flex justify-center items-center translate-y-80`}>
                                         <img
@@ -97,11 +94,11 @@ function OmnitrixAlienForce() {
                                                     {}
                                             }
                                             className={
-                                                `${windowWidth < 800 && currentAlienInView.little?.height ? (currentAlienInView.little.height.character !== undefined ? `${currentAlienInView.little.height.character}` : "h-[30rem] lg:h-[40rem]") : currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[40rem]"}
+                                                `${windowWidth < 800 && currentAlienInView.little?.height?.character ? `${currentAlienInView.little.height.character}` : currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[28rem] md:h-[30rem] lg:h-[40rem]"}
                                                 drop-shadow-2xl 
                                                 contrast-200
                                                 hover:contrast-100 
-                                                ${toogleInvertValue ? "animate-alienFlickLittle lg:animate-alienFlick" : "animate-fadeIn translate-y-[-100px] lg:translate-y-[-200px]"}`
+                                                ${toogleInvertValue ? "animate-alienFlick" : "animate-fadeIn"} translate-y-[-100px] lg:translate-y-[-200px]`
                                             }
                                             src={windowWidth < 800 && currentAlienInView.little ? (currentAlienInView.little.img ? currentAlienInView.little.img : "") : (currentAlienInView.img ? currentAlienInView.img : "")}
                                             alt={currentAlienInView.name}
@@ -151,7 +148,7 @@ function OmnitrixAlienForce() {
                                         if (toogleInvertValue) new Audio(ultimate_selectOtherAlien).play()
                                         if (!toogleInvertValue) new Audio(ultimate_transform).play()
                                     }}
-                                    className={`absolute btn hover:bg-gray-400  ${alienTransformed ? "" : ""} w-[33rem] h-[33rem] lg:w-[40rem] lg:h-[40rem] rounded-full bg-accent`}
+                                    className={`absolute btn hover:bg-gray-400  ${alienTransformed ? "" : ""} w-[30rem] h-[30rem]  md:w-[33rem] md:h-[33rem] lg:w-[40rem] lg:h-[40rem] rounded-full bg-accent`}
                                 />
                                 <div
                                     onClick={() => {
@@ -159,12 +156,12 @@ function OmnitrixAlienForce() {
                                         if (toogleInvertValue) new Audio(ultimate_selectOtherAlien).play()
                                         if (!toogleInvertValue) new Audio(ultimate_transform).play()
                                     }}
-                                    className={`absolute btn bg-current hover:bg-current  ${alienTransformed ? "" : ""} w-[28rem] h-[28rem] lg:w-[35rem] lg:h-[35rem] rounded-full bg-accent`}
+                                    className={`absolute btn bg-current hover:bg-current  ${alienTransformed ? "" : ""} w-[25rem] h-[25rem] md:w-[28rem] md:h-[28rem] lg:w-[35rem] lg:h-[35rem] rounded-full bg-accent`}
                                 />
                             </div>
 
                             <div
-                                className={`absolute w-[25rem] h-[25rem] lg:w-[30rem] lg:h-[30rem] rounded-full bg-black flex justify-center items-center  `}
+                                className={`absolute w-[20rem] h-[20rem] md:w-[25rem] md:h-[25rem] lg:w-[30rem] lg:h-[30rem] rounded-full bg-black flex justify-center items-center  `}
                             />
                             <Ben10Logo
                                 activateFlashingLights={activateFlashingLights}
@@ -208,7 +205,7 @@ function Ben10Logo({ activateFlashingLights, flashingLights, toogleInvertValue, 
     return (
         <div
             onClick={() => activate()}
-            className={`absolute w-[25rem] h-[25rem] lg:h-[30rem] lg:w-[30rem] rounded-full  flex flex-col justify-center items-center overflow-hidden`}
+            className={`absolute w-[20rem] h-[20rem] md:w-[25rem] md:h-[25rem] lg:h-[30rem] lg:w-[30rem] rounded-full  flex flex-col justify-center items-center overflow-hidden`}
         >
             <div className={`mx-auto h-0 w-0 border-r-[10rem] lg:border-r-[15rem]  border-t-[18rem] lg:border-t-[23rem]   border-l-[10rem] lg:border-l-[15rem] border-solid  border-r-transparent  border-l-transparent  border-t-primary rounded-full -mb-32 ${flashingLights ? "animate-omnitrixFlashingLightsLogo " : ""}`} />
             <div className={`mx-auto  h-0 w-0  border-r-[10rem] lg:border-r-[15rem]  border-b-[18rem] lg:border-b-[23rem]  border-l-[10rem] lg:border-l-[15rem] border-solid  border-r-transparent  border-l-transparent  border-b-primary rounded-full ${flashingLights ? "animate-omnitrixFlashingLightsLogo " : ""}`} />
