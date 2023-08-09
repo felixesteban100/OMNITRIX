@@ -16,7 +16,7 @@ function OmnitrixOmniverse() {
     const [transform, setTransform] = useState<boolean>(false)
     const [currentAlienInView, setCurrentAlienInView] = useState<Alien | null>(null)
 
-    const [recharged, setRecharged] = useState(false)
+    const [recharged, setRecharged] = useState(true)
     const [typeOfcharging, setTypeOfcharging] = useState<string>("ultra")
 
     const [animateBackground, setAnimateBackground] = useState("")
