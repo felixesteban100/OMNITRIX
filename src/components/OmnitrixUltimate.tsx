@@ -150,7 +150,8 @@ function OmnitrixUltimate() {
                                                     drop-shadow-2xl 
                                                     contrast-200
                                                     hover:contrast-100 
-                                                    ${activateUltimate ? "animate-alienNormalOut translate-y-[-100px] lg:translate-y-[-200px]" : toogleInvertValue ? "animate-alienFlickLittle lg:animate-alienFlick" : "animate-fadeIn translate-y-[-100px] lg:translate-y-[-200px]"}`
+                                                    translate-y-[-150px] md:translate-y-[-180px] lg:translate-y-[-200px]
+                                                    ${activateUltimate ? "animate-alienNormalOut " : toogleInvertValue ? "animate-alienFlick" : "animate-fadeIn"}`
                                                 }
                                                 // src={currentAlienInView.img}
                                                 src={(windowWidth < 1500 && currentAlienInView.little?.height) ? (currentAlienInView.little?.img ? currentAlienInView.little?.img : "") : (currentAlienInView?.img ? currentAlienInView?.img : "")}
@@ -164,6 +165,10 @@ function OmnitrixUltimate() {
                                                             new Audio(ultimate_untransform).play()
                                                         }
                                                     }
+                                                    if(toogleInvertValue){
+                                                        setToogleInvertValue(false)
+                                                        new Audio(ultimate_transform).play()
+                                                    }
                                                 }}
                                             />
                                             {
@@ -176,9 +181,8 @@ function OmnitrixUltimate() {
                                                             absolute
                                                             drop-shadow-2xl 
                                                             hover:contrast-200
-                                                            translate-y-[-100px] lg:translate-y-[-200px] 
-                                                            ${activateUltimate ? "animate-fadeInLowerSelector" : "hidden"}
-                                                            `
+                                                            translate-y-[-170px] md:translate-y-[-180px] lg:translate-y-[-200px] 
+                                                            ${activateUltimate ? "animate-fadeInLowerSelector" : "hidden"}`
                                                         }
                                                         // className={
                                                         //     `${windowWidth < 1500 ? (currentAlienInView.little?.ultimate?.height?.character !== undefined ? `${currentAlienInView.little?.ultimate?.height?.character}` : "h-[30rem] lg:h-[40rem]") : currentAlienInView.ultimate?.height?.character !== undefined ? `${currentAlienInView.ultimate?.height?.character}` : "h-[30rem] lg:h-[40rem]"}
@@ -213,8 +217,8 @@ function OmnitrixUltimate() {
                         : null
                 }
 
-                <div className={`transition-all duration-700 ${alienTransformed ? "animate-omnitrixRotateDown " : "animate-omnitrixRotateUp"} bg-transparent md:bg-secondary mx-auto h-full flex flex-col-reverse gap-10 md:gap-0 md:grid md:grid-cols-3`}>
-                    <div className='flex md:flex-col justify-center items-center shrink gap-5'>
+                <div className={`transition-all duration-700 ${alienTransformed ? "animate-omnitrixRotateDown " : "animate-omnitrixRotateUp"} bg-transparent md:bg-secondary mx-auto h-full flex flex-col-reverse md:grid md:grid-cols-3`}>
+                    <div className='flex md:flex-col justify-center items-center shrink gap-5 -mt-[5rem] md:mt-0'>
                         <div className={`h-56 w-[80%] hidden bg-black rounded-md md:flex md:flex-col gap-28 justify-center items-center`}>
                             <div className='h-[20%] w-[90%] rounded-full bg-lime-500'></div>
                             <div className='h-[20%] w-[90%] rounded-full bg-lime-500'></div>
@@ -237,8 +241,8 @@ function OmnitrixUltimate() {
                                 className={`flex gap-5 ${activateUltimate ? "animate-scaleInCenter" : "animate-scaleOutCenter"}`}
                             // className={`flex gap-5 transition-all ${activateUltimate ? "animate-scaleInCenter scale-1" : "ease-out scale-0"} `}
                             >
-                                <div className={`bg-gray-500 h-[50rem] w-[10rem] rotate-45 transition-all duration-500 `}></div>
-                                <div className={`absolute bg-gray-500 h-[50rem] w-[10rem] -rotate-45 transition-all duration-500`}></div>
+                                <div className={`bg-gray-500 h-[40rem] lg:h-[50rem] w-[10rem] rotate-45 transition-all duration-500 `}></div>
+                                <div className={`absolute bg-gray-500 h-[40rem] lg:h-[50rem] w-[10rem] -rotate-45 transition-all duration-500`}></div>
                             </div>
                             <div
                                 onClick={() => {
@@ -249,7 +253,7 @@ function OmnitrixUltimate() {
                                         if (!toogleInvertValue) new Audio(ultimate_transform).play()
                                     }
                                 }}
-                                className={`absolute btn hover:bg-gray-400  ${alienTransformed ? "" : ""} w-[33rem] h-[33rem] lg:w-[40rem] lg:h-[40rem] rounded-full bg-accent flex justify-center items-center`}
+                                className={`absolute btn hover:bg-gray-400  ${alienTransformed ? "" : ""} w-[28rem] h-[28rem] md:w-[33rem] md:h-[33rem] lg:w-[40rem] lg:h-[40rem] rounded-full bg-accent flex justify-center items-center`}
                             />
                             <div
                                 onClick={() => {
@@ -263,12 +267,12 @@ function OmnitrixUltimate() {
                                         new Audio(ultimate_untransform).play()
                                     }
                                 }}
-                                className={`absolute btn bg-current hover:bg-current  ${alienTransformed ? "" : ""} w-[28rem] h-[28rem] lg:w-[35rem] lg:h-[35rem] rounded-full bg-accent flex justify-end items-end`}
+                                className={`absolute btn bg-current hover:bg-current  ${alienTransformed ? "" : ""} w-[24rem] h-[24rem] md:w-[28rem] md:h-[28rem] lg:w-[35rem] lg:h-[35rem] rounded-full bg-accent flex justify-end items-end`}
                             />
                         </div>
 
                         <div
-                            className={`absolute w-[25rem] h-[25rem] lg:w-[30rem] lg:h-[30rem] rounded-full bg-black flex justify-center items-center  `}
+                            className={`absolute w-[20rem] h-[20rem] md:w-[25rem] md:h-[25rem] lg:w-[30rem] lg:h-[30rem] rounded-full bg-black flex justify-center items-center  `}
                         />
                         <Ben10Logo
                             flashingLights={flashingLights}
@@ -308,7 +312,7 @@ function Ben10Logo({ flashingLights, activate }: Ben10LogoProps) {
     return (
         <div
             onClick={() => activate()}
-            className={`absolute w-[25rem] h-[25rem] lg:h-[30rem] lg:w-[30rem] rounded-full  flex flex-col justify-center items-center overflow-hidden`}
+            className={`absolute w-[20rem] h-[20rem] md:w-[25rem] md:h-[25rem] lg:h-[30rem] lg:w-[30rem] rounded-full  flex flex-col justify-center items-center overflow-hidden`}
         >
             <div className={`mx-auto h-0 w-0 border-r-[10rem] lg:border-r-[15rem]  border-t-[18rem] lg:border-t-[23rem]   border-l-[10rem] lg:border-l-[15rem] border-solid  border-r-transparent  border-l-transparent  border-t-primary rounded-full -mb-32 ${flashingLights ? "animate-omnitrixFlashingLightsLogo " : ""}`} />
             <div className={`mx-auto  h-0 w-0  border-r-[10rem] lg:border-r-[15rem]  border-b-[18rem] lg:border-b-[23rem]  border-l-[10rem] lg:border-l-[15rem] border-solid  border-r-transparent  border-l-transparent  border-b-primary rounded-full ${flashingLights ? "animate-omnitrixFlashingLightsLogo " : ""}`} />
