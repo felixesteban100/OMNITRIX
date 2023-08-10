@@ -19,14 +19,12 @@ function OmnitrixUltimate() {
     const [transformAnimation, setTransformAnimation] = useState<boolean>(false)
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-    useEffect(() => {
-        if (!toogleInvertValue) {
-            setTransformAnimation(true)
-            setInterval(() => {
-                setTransformAnimation(false)
-            }, 5000)
-        }
-    }, [toogleInvertValue, currentAlienInView])
+    const handleButtonClick = () => {
+        setTransformAnimation(true);
+        setTimeout(() => {
+            setTransformAnimation(false);
+        }, 1000); // Set the duration of the animation
+    };
 
     const handleResize = () => {
         setWindowWidth(window.innerWidth);
@@ -103,6 +101,7 @@ function OmnitrixUltimate() {
             setToogleInvertValue(prev => !prev)
             if (!toogleInvertValue) new Audio(ultimate_untransform).play()
             if (toogleInvertValue) new Audio(ultimate_transform).play()
+            handleButtonClick()
         }
 
         if (currentAlienInView === null) {
@@ -165,7 +164,7 @@ function OmnitrixUltimate() {
                                                             new Audio(ultimate_untransform).play()
                                                         }
                                                     }
-                                                    if(toogleInvertValue){
+                                                    if (toogleInvertValue) {
                                                         setToogleInvertValue(false)
                                                         new Audio(ultimate_transform).play()
                                                     }
@@ -249,6 +248,7 @@ function OmnitrixUltimate() {
                                     setActivateUltimate(false)
                                     if (!activateUltimate) {
                                         selectPreviousAlien()
+                                        if(!toogleInvertValue) handleButtonClick()
                                         if (toogleInvertValue) new Audio(ultimate_selectOtherAlien).play()
                                         if (!toogleInvertValue) new Audio(ultimate_transform).play()
                                     }
@@ -260,6 +260,7 @@ function OmnitrixUltimate() {
                                     setActivateUltimate(false)
                                     if (!activateUltimate) {
                                         selectNextAlien()
+                                        if(!toogleInvertValue) handleButtonClick()
                                         if (toogleInvertValue) new Audio(ultimate_selectOtherAlien).play()
                                         if (!toogleInvertValue) new Audio(ultimate_transform).play()
                                     }
@@ -277,36 +278,41 @@ function OmnitrixUltimate() {
                         <Ben10Logo
                             flashingLights={flashingLights}
                             activate={activate}
-                            /* activateFlashingLights={activateFlashingLights}
-                            toogleInvertValue={toogleInvertValue}
-                            setToogleInvertValue={setToogleInvertValue}
-                            alienTransformed={alienTransformed}
-                            currentAlienInView={currentAlienInView}
-                            setCurrentAlienInView={setCurrentAlienInView} */
+                        /* activateFlashingLights={activateFlashingLights}
+                        toogleInvertValue={toogleInvertValue}
+                        setToogleInvertValue={setToogleInvertValue}
+                        alienTransformed={alienTransformed}
+                        currentAlienInView={currentAlienInView}
+                        setCurrentAlienInView={setCurrentAlienInView} */
                         />
                     </div>
                 </div>
             </div>
 
-            {
+            {/* {
                 transformAnimation ?
                     <div className='animate-transformIntoAlien absolute z-50 bg-primary h-screen w-screen translate-y-[-950px]' />
                     :
                     null
-            }
+            } */}
+            <div
+                // className={`absolute z-50 bg-primary h-screen w-screen translate-y-[-850px] transition-transform ${transformAnimation ? 'animate-transformIntoAlien' : 'scale-0'}`}
+                // className={`absolute z-50 bg-primary h-screen w-screen translate-y-[-850px] transition-all ${transformAnimation ? 'animate-transformIntoAlien' : 'scale-0'}`}
+                className={`absolute z-50 bg-primary h-screen w-screen translate-y-[-950px] transition-all ${transformAnimation ? 'scale-100' : 'scale-0'}`}
+            />
         </div >
     )
 }
 
 type Ben10LogoProps = {
     flashingLights: boolean
+    activate: () => void
     // activateFlashingLights: () => void
     // toogleInvertValue: boolean
     // setToogleInvertValue: React.Dispatch<React.SetStateAction<boolean>>
     // alienTransformed: boolean;
     // setCurrentAlienInView: React.Dispatch<React.SetStateAction<Alien | null>>;
     // currentAlienInView: Alien | null;
-    activate: () => void
 }
 function Ben10Logo({ flashingLights, activate }: Ben10LogoProps) {
     return (
