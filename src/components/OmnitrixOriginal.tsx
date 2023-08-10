@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { ALL_ALIENS_OG } from '../constants';
 import { Alien } from '../types';
 import og_recharged from '/omnitrixSoundEffects/og/og_recharged.mp3'
