@@ -17,14 +17,21 @@ function OmnitrixAlienForce() {
     const [transformAnimation, setTransformAnimation] = useState<boolean>(false)
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-    useEffect(() => {
-        if (!toogleInvertValue) {
-            setTransformAnimation(true)
-            setInterval(() => {
-                setTransformAnimation(false)
-            }, 5000)
-        }
-    }, [toogleInvertValue, currentAlienInView])
+    // useEffect(() => {
+    //     if (toogleInvertValue === false) {
+    //         setInterval(() => {
+    //             console.log(toogleInvertValue)
+    //             setTransformAnimation(false)
+    //         }, 5000)
+    //     }
+    // }, [toogleInvertValue, currentAlienInView])
+
+    const handleButtonClick = () => {
+        setTransformAnimation(true);
+        setTimeout(() => {
+            setTransformAnimation(false);
+        }, 1000); // Set the duration of the animation
+    };
 
 
     const handleResize = () => {
@@ -76,7 +83,7 @@ function OmnitrixAlienForce() {
     return (
         <div
             data-theme="omnitrix_AlienForce"
-            className={`min-h-screen overflow-x-hidden px-0 mx-0 ${alienTransformed ? "animate-backgroundBen10" : ""}`}
+            className={`min-h-screen overflow-x-hidden overflow-y-hidden px-0 mx-0 ${alienTransformed ? "animate-backgroundBen10" : ""}`}
         >
 
             <div className={`h-full lg:max-h-screen w-full  ${alienTransformed ? "pt-[15rem]" : ""}`}>
@@ -145,6 +152,7 @@ function OmnitrixAlienForce() {
                                 <div
                                     onClick={() => {
                                         selectPreviousAlien()
+                                        if(!toogleInvertValue) handleButtonClick()
                                         if (toogleInvertValue) new Audio(ultimate_selectOtherAlien).play()
                                         if (!toogleInvertValue) new Audio(ultimate_transform).play()
                                     }}
@@ -153,6 +161,7 @@ function OmnitrixAlienForce() {
                                 <div
                                     onClick={() => {
                                         selectNextAlien()
+                                        if(!toogleInvertValue) handleButtonClick()
                                         if (toogleInvertValue) new Audio(ultimate_selectOtherAlien).play()
                                         if (!toogleInvertValue) new Audio(ultimate_transform).play()
                                     }}
@@ -169,19 +178,19 @@ function OmnitrixAlienForce() {
                                 toogleInvertValue={toogleInvertValue}
                                 setToogleInvertValue={setToogleInvertValue}
                                 alienTransformed={alienTransformed}
+                                handleButtonClick={handleButtonClick}
                             />
                         </div>
                     </div>
                 </div>
             </div>
 
-            {
-                transformAnimation ?
-                    <div className='animate-transformIntoAlien absolute z-50 bg-primary h-screen w-screen translate-y-[-850px]' />
-                    :
-                    null
-            }
-        </div >
+            <div
+                // className={`absolute z-50 bg-primary h-screen w-screen translate-y-[-850px] transition-transform ${transformAnimation ? 'animate-transformIntoAlien' : 'scale-0'}`}
+                // className={`absolute z-50 bg-primary h-screen w-screen translate-y-[-850px] transition-all ${transformAnimation ? 'animate-transformIntoAlien' : 'scale-0'}`}
+                className={`absolute z-50 bg-primary h-screen w-screen translate-y-[-850px] transition-all ${transformAnimation ? 'scale-100' : 'scale-0'}`}
+            />
+        </div>
     )
 }
 
@@ -191,14 +200,16 @@ type Ben10LogoProps = {
     toogleInvertValue: boolean
     setToogleInvertValue: React.Dispatch<React.SetStateAction<boolean>>
     alienTransformed: boolean;
+    handleButtonClick: () => void
 }
-function Ben10Logo({ activateFlashingLights, flashingLights, toogleInvertValue, setToogleInvertValue, alienTransformed }: Ben10LogoProps) {
+function Ben10Logo({ activateFlashingLights, flashingLights, toogleInvertValue, setToogleInvertValue, alienTransformed, handleButtonClick }: Ben10LogoProps) {
     function activate() {
         activateFlashingLights()
         if (alienTransformed) {
             setToogleInvertValue(prev => !prev)
             if (!toogleInvertValue) new Audio(ultimate_untransform).play()
             if (toogleInvertValue) new Audio(ultimate_transform).play()
+            handleButtonClick()
         }
     }
 
