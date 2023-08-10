@@ -23,14 +23,21 @@ function OmnitrixOmniverse() {
 
     const [transformAnimation, setTransformAnimation] = useState<boolean>(false)
 
-    useEffect(() => {
-        if (alienSelectedTransformed || recharged === false) {
-            setTransformAnimation(true)
-            setInterval(() => {
-                setTransformAnimation(false)
-            }, 3500)
-        }
-    }, [alienSelectedTransformed, currentAlienInView, recharged])
+    // useEffect(() => {
+    //     if (alienSelectedTransformed || recharged === false) {
+    //         setTransformAnimation(true)
+    //         setInterval(() => {
+    //             setTransformAnimation(false)
+    //         }, 3500)
+    //     }
+    // }, [alienSelectedTransformed, currentAlienInView, recharged])
+
+    const handleButtonClick = () => {
+        setTransformAnimation(true);
+        setTimeout(() => {
+            setTransformAnimation(false);
+        }, 2000); // Set the duration of the animation
+    };
 
     useEffect(() => {
         // if (transform && currentAlienInView !== null) {
@@ -113,6 +120,7 @@ function OmnitrixOmniverse() {
                     alienSelectedTransformed && currentAlienInView && transform ?
                         <AlienImage
                             currentAlienInView={currentAlienInView}
+                            transformAnimation={transformAnimation}
                         />
                         : null
                 }
@@ -179,6 +187,7 @@ function OmnitrixOmniverse() {
                                     setCurrentAlienInView={setCurrentAlienInView}
                                     currentAlienInView={currentAlienInView}
                                     transform={transform}
+                                    handleButtonClick={handleButtonClick}
                                 />
                             </div>
                             <div
@@ -201,6 +210,7 @@ function OmnitrixOmniverse() {
                                 setAlienSelectedTransformed={setAlienSelectedTransformed}
                                 setCurrentAlienInView={setCurrentAlienInView}
                                 alienSelectedTransformed={alienSelectedTransformed}
+                                handleButtonClick={handleButtonClick}
                             />
 
                             <CaseForOmnitrix
@@ -239,12 +249,17 @@ function OmnitrixOmniverse() {
                 </div>
             </div>
 
-            {
+            {/* {
                 transformAnimation ?
                     <div className={`animate-transformIntoAlien absolute z-50 ${recharged ? "bg-primary translate-y-[-920px]" : "bg-error translate-y-[-800px]"} h-screen w-screen `} />
                     :
                     null
-            }
+            } */}
+            <div
+                // className={`absolute z-50 bg-primary h-screen w-screen translate-y-[-850px] transition-transform ${transformAnimation ? 'animate-transformIntoAlien' : 'scale-0'}`}
+                // className={`absolute z-50 bg-primary h-screen w-screen translate-y-[-850px] transition-all ${transformAnimation ? 'animate-transformIntoAlien' : 'scale-0'}`}
+                className={`absolute z-50 bg-primary h-screen w-screen translate-y-[-850px] transition-all ${transformAnimation ? 'scale-100' : 'scale-0'}`}
+            />
         </div>
     )
 }
@@ -307,8 +322,9 @@ type Ben10LogoProps = {
     setAlienSelectedTransformed: React.Dispatch<React.SetStateAction<boolean>>;
     setCurrentAlienInView: React.Dispatch<React.SetStateAction<Alien | null>>;
     alienSelectedTransformed: boolean
+    handleButtonClick: () => void
 }
-function Ben10Logo({ currentAlienInView, setCurrentAlienInView, setAlienSelectedTransformed, alienSelectedTransformed/* , viewAlienSelection */ }: Ben10LogoProps) {
+function Ben10Logo({ currentAlienInView, setCurrentAlienInView, setAlienSelectedTransformed, alienSelectedTransformed, handleButtonClick/* , viewAlienSelection */ }: Ben10LogoProps) {
     return (
         <div
             className={`absolute w-[20rem] h-[20rem] lg:h-[28rem] lg:w-[28rem] rounded-full bg-transparent flex flex-col justify-center items-center `}
@@ -321,6 +337,7 @@ function Ben10Logo({ currentAlienInView, setCurrentAlienInView, setAlienSelected
                 }
                 setAlienSelectedTransformed(true);
                 new Audio(omniverse_transform).play()
+                handleButtonClick()
             }}
         >
             <div
@@ -605,7 +622,7 @@ function ButtonActivateOmnitrix({ viewAlienSelection, alienSelectedTransformed, 
 }
 
 
-function AlienImage({ currentAlienInView/* , setCurrentAlienInView */ }: { currentAlienInView: Alien; /* setCurrentAlienInView: React.Dispatch<React.SetStateAction<Alien | null>>; */ }) {
+function AlienImage({ currentAlienInView, transformAnimation/* , setCurrentAlienInView */ }: { currentAlienInView: Alien; transformAnimation: boolean; /* setCurrentAlienInView: React.Dispatch<React.SetStateAction<Alien | null>>; */ }) {
     const [hovering, setHovering] = useState(false)
 
     return (
@@ -632,7 +649,8 @@ function AlienImage({ currentAlienInView/* , setCurrentAlienInView */ }: { curre
                     `${currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[35rem] mt-[3rem"}  
                     brightness-100 
                     contrast-200 
-                    animate-alienRotateUpLittle lg:animate-alienRotateUp`
+                    translate-y-[-100px] 
+                    ${transformAnimation ? "animate-alienRotateUpLittle lg:animate-alienRotateUp" : ""}`
                 }
                 src={currentAlienInView.img}
                 alt={currentAlienInView.name}
@@ -648,8 +666,9 @@ type GreenBoxesOnTheSidesOfTheHandlerOmnitrixProps = {
     setCurrentAlienInView: React.Dispatch<React.SetStateAction<Alien | null>>
     currentAlienInView: Alien | null
     transform: boolean; 
+    handleButtonClick: () => void 
 }
-function GreenBoxesOnTheSidesOfTheHandlerOmnitrix({ setCurrentAlienInView, currentAlienInView, transform }: GreenBoxesOnTheSidesOfTheHandlerOmnitrixProps) {
+function GreenBoxesOnTheSidesOfTheHandlerOmnitrix({ setCurrentAlienInView, currentAlienInView, transform, handleButtonClick }: GreenBoxesOnTheSidesOfTheHandlerOmnitrixProps) {
     function nextAlien() {
         const nextAlien: number = ALL_ALIENS.reduce((acc, current, index) => {
             if (current.name === currentAlienInView?.name) acc = index + 1
@@ -660,6 +679,7 @@ function GreenBoxesOnTheSidesOfTheHandlerOmnitrix({ setCurrentAlienInView, curre
         if (nextAlien !== ALL_ALIENS.length) setCurrentAlienInView(ALL_ALIENS[nextAlien])
         
         if(transform) new Audio(omniverse_transform).play()
+        handleButtonClick()
     }
 
     function previousAlien() {
@@ -668,11 +688,13 @@ function GreenBoxesOnTheSidesOfTheHandlerOmnitrix({ setCurrentAlienInView, curre
             return acc
         }, 0)
 
-        console.log(previousAlien)
+        
 
         if (previousAlien === -1) setCurrentAlienInView(ALL_ALIENS[ALL_ALIENS.length - 1])
         if (previousAlien > -1) setCurrentAlienInView(ALL_ALIENS[previousAlien])
         if(transform) new Audio(omniverse_transform).play()
+
+        handleButtonClick()
     }
 
     return (
