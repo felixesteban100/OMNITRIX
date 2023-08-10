@@ -19,14 +19,13 @@ function OmnitrixOriginal() {
 
     const [transformAnimation, setTransformAnimation] = useState<boolean>(false)
 
-    useEffect(() => {
-        if (alienTransformed || recharged === false) {
-            setTransformAnimation(true)
-            setInterval(() => {
-                setTransformAnimation(false)
-            }, 3500)
-        }
-    }, [alienTransformed, currentAlienInView, recharged])
+    const handleButtonClick = () => {
+        setTransformAnimation(true);
+        setTimeout(() => {
+            setTransformAnimation(false);
+        }, 2000); // Set the duration of the animation
+    };
+
 
     function changeAlienByNumber(num: number | null): void {
         if (num !== null) setCurrentAlienInView(ALL_ALIENS[num])
@@ -94,6 +93,7 @@ function OmnitrixOriginal() {
                     alienTransformed && currentAlienInView ?
                         <AlienImage
                             currentAlienInView={currentAlienInView}
+                            transformAnimation={transformAnimation}
                         />
                         :
                         !currentAlienInView ?
@@ -102,6 +102,7 @@ function OmnitrixOriginal() {
                                 onClick={() => {
                                     setCurrentAlienInView(ALL_ALIENS[Math.floor(Math.random() * ALL_ALIENS.length - 1)])
                                     setAlienSelected(true)
+                                    handleButtonClick()
                                     new Audio(og_transform).play()
                                 }}
                             />
@@ -127,21 +128,23 @@ function OmnitrixOriginal() {
                                 <div
                                     onClick={() => {
                                         selectPreviousAlien()
+                                        if (alienTransformed) handleButtonClick()
                                         if (!alienTransformed && viewAlienSelection) new Audio(og_selectOtherAlien).play()
                                         if (alienTransformed && viewAlienSelection) new Audio(og_transform).play()
                                     }}
-                                    className={`bg-base-300 w-[35rem] h-[35rem] lg:w-[40rem] lg:h-[40rem] rounded-full grid grid-cols-2 gap-60 rotate-45`}
+                                    className={`bg-base-300 w-[30rem] h-[30rem] sm:w-[35rem] sm:h-[35rem] md:w-[35rem] md:h-[35rem] lg:w-[40rem] lg:h-[40rem] rounded-full grid grid-cols-2 gap-60 rotate-45`}
                                 />
                                 <OuterSelectorRing
                                     selectNextAlien={selectNextAlien}
                                     viewAlienSelection={viewAlienSelection}
                                     alienTransformed={alienTransformed}
                                     recharged={recharged}
+                                    handleButtonClick={handleButtonClick}
                                 />
                             </div>
 
                             <div
-                                className={`absolute w-[25rem] h-[25rem] lg:w-[30rem] lg:h-[30rem] rounded-full bg-base-100 flex justify-center items-center  `}
+                                className={`absolute w-[20rem] h-[20rem] sm:w-[25rem] sm:h-[25rem] md:w-[25rem] m:h-[25rem] lg:w-[30rem] lg:h-[30rem] rounded-full bg-base-100 flex justify-center items-center  `}
                             />
                             <Ben10Logo
                                 activateFlashingLights={activateFlashingLights}
@@ -158,18 +161,24 @@ function OmnitrixOriginal() {
                                 setAlienSelected={setAlienSelected}
                                 recharged={recharged}
                                 setCurrentAlienInView={setCurrentAlienInView}
+                                handleButtonClick={handleButtonClick}
                             />
                         </div>
                     </div>
                 </div>
             </div>
 
-            {
+            {/* {
                 transformAnimation ?
                     <div className={`animate-transformIntoAlien absolute z-50 ${recharged ? "bg-primary translate-y-[-920px]" : "bg-error translate-y-[-800px]"} h-screen w-screen `} />
                     :
                     null
-            }
+            } */}
+            <div
+                // className={`absolute z-50 bg-primary h-screen w-screen translate-y-[-850px] transition-transform ${transformAnimation ? 'animate-transformIntoAlien' : 'scale-0'}`}
+                // className={`absolute z-50 bg-primary h-screen w-screen translate-y-[-850px] transition-all ${transformAnimation ? 'animate-transformIntoAlien' : 'scale-0'}`}
+                className={`absolute z-50 bg-primary h-screen w-screen translate-y-[-850px] transition-all ${transformAnimation ? 'scale-100' : 'scale-0'}`}
+            />
         </div>
     )
 }
@@ -179,18 +188,20 @@ type OuterSelectorRingProps = {
     viewAlienSelection: boolean;
     alienTransformed: boolean;
     recharged: boolean
+    handleButtonClick: () => void
 }
-function OuterSelectorRing({ selectNextAlien, viewAlienSelection, alienTransformed, recharged }: OuterSelectorRingProps) {
+function OuterSelectorRing({ selectNextAlien, viewAlienSelection, alienTransformed, recharged, handleButtonClick }: OuterSelectorRingProps) {
     return (
         <div
             onClick={() => {
                 selectNextAlien()
+                if (alienTransformed) handleButtonClick()
                 if (!alienTransformed && viewAlienSelection) new Audio(og_selectOtherAlien).play()
                 if (alienTransformed && viewAlienSelection) new Audio(og_transform).play()
             }}
-            className={`hover:border-black absolute border-[5rem] border-black bg-transparent ${viewAlienSelection ? "btn hover:border-black animate-spin-once" : "btn btn-disable bg-black"} ${alienTransformed ? "" : ""} w-[32rem] h-[32rem] lg:w-[35rem] lg:h-[35rem] rounded-full`}
+            className={`hover:border-black absolute border-[5rem] border-black bg-transparent ${viewAlienSelection ? "btn hover:border-black animate-spin-once" : "btn btn-disable bg-black"} ${alienTransformed ? "" : ""} w-[27rem] h-[27rem] sm:w-[32rem] sm:h-[32rem] md:w-[32rem] md:h-[32rem] lg:w-[37rem] lg:h-[37rem] rounded-full`}
         >
-            <div className='absolute h-[30rem] w-[30rem] bg-transparent rounded-full flex flex-col gap-[13rem] lg:gap-[15rem] justify-center items-center'>
+            <div className='absolute h-[25rem] w-[25rem] sm:h-[30rem] sm:w-[30rem] md:h-[30rem] md:w-[30rem] lg:h-[30rem] lg:w-[30rem] bg-transparent rounded-full flex flex-col gap-[11.5rem] sm:gap-[13rem] md:gap-[13rem] lg:gap-[16rem] justify-center items-center'>
                 <div className={`w-full flex justify-center bg-transparent`}>
                     <div className={`w-5 h-5 lg:w-5 lg:h-5 rounded-full ${recharged ? "bg-primary" : "bg-error"}`} />
                 </div>
@@ -228,7 +239,7 @@ function Ben10Logo({ activateFlashingLights, flashingLights, viewAlienSelection,
                     new Audio(og_recharged).play()
                 }
             }}
-            className={`${recharged ? "cursor-default" : "cursor-not-allowed"} absolute w-[25rem] h-[25rem] lg:h-[30rem] lg:w-[30rem] rounded-full  flex flex-col justify-center items-center overflow-hidden`}
+            className={`${recharged ? "cursor-default" : "cursor-not-allowed"} absolute w-[20rem] h-[20rem] sm:w-[25rem] sm:h-[25rem] md:w-[25rem] md:h-[25rem] lg:h-[30rem] lg:w-[30rem] rounded-full  flex flex-col justify-center items-center overflow-hidden`}
         >
             <div className={`mx-auto h-0 w-0 border-r-[10rem] lg:border-r-[15rem]  border-t-[18rem] lg:border-t-[23rem]   border-l-[10rem] lg:border-l-[15rem] border-solid  border-r-transparent  border-l-transparent  border-t-primary rounded-full -mb-32 ${!recharged ? "animate-omnitrixFlashingLightsLogoUncharged" : flashingLights ? "animate-omnitrixFlashingLightsLogo " : viewAlienSelection ? "animate-omnitrixOutTop " : "animate-omnitrixInTop "}`} />
             <div className={`mx-auto  h-0 w-0  border-r-[10rem] lg:border-r-[15rem]  border-b-[18rem] lg:border-b-[23rem]  border-l-[10rem] lg:border-l-[15rem] border-solid  border-r-transparent  border-l-transparent  border-b-primary rounded-full ${!recharged ? "animate-omnitrixFlashingLightsLogoUncharged" : flashingLights ? "animate-omnitrixFlashingLightsLogo " : viewAlienSelection ? "animate-omnitrixOutBottom" : "animate-omnitrixInBottom  "}`} />
@@ -245,25 +256,48 @@ type AlienSelectorProps = {
     setAlienSelected: React.Dispatch<React.SetStateAction<boolean>>;
     recharged: boolean
     setCurrentAlienInView: React.Dispatch<React.SetStateAction<Alien | null>>
+    handleButtonClick: () => void
 }
-function AlienSelector({ flashingLights, viewAlienSelection, currentAlienInView, alienTransformed, setAlienSelected, recharged, setCurrentAlienInView }: AlienSelectorProps) {
+function AlienSelector({ flashingLights, viewAlienSelection, currentAlienInView, alienTransformed, setAlienSelected, recharged, setCurrentAlienInView, handleButtonClick }: AlienSelectorProps) {
     return (
         <div
             className={`${!recharged && "hidden"} absolute w-[20rem] h-[20rem] lg:h-[30rem] lg:w-[30rem] rounded-full bg-transparent flex flex-col justify-center items-center ${flashingLights ? "hidden" : viewAlienSelection ? "animate-omnitrixInDiamond" : "animate-omnitrixOutDiamond"} `}
             onClick={() => {
+                handleButtonClick()
                 if (alienTransformed) {
                     setCurrentAlienInView(ALL_ALIENS[Math.floor(Math.random() * ALL_ALIENS.length - 1)])
                     new Audio(og_transform).play()
                 }
             }}
         >
-            <div className={`mx-auto h-0 w-0 border-r-[8rem] lg:border-r-[12rem] border-b-[12rem] lg:border-b-[15rem] border-l-[8rem] lg:border-l-[12rem] border-solid  border-r-transparent  border-l-transparent  border-b-primary -mb-0.5 `} />
-            <div className={`mx-auto h-0 w-0 border-r-[8rem] lg:border-r-[12rem] border-t-[12rem] lg:border-t-[15rem] border-l-[8rem] lg:border-l-[12rem] border-solid  border-r-transparent  border-l-transparent  border-t-primary`} />
+            <div
+                className={
+                    `mx-auto h-0 w-0 
+                    border-r-[5rem] md:border-r-[8rem] lg:border-r-[12rem] 
+                    border-b-[10rem] md:border-b-[12rem] lg:border-b-[15rem] 
+                    border-l-[5rem] md:border-l-[8rem] lg:border-l-[12rem] 
+                    border-solid border-r-transparent border-l-transparent border-b-primary 
+                    -mb-0.5`
+                }
+            />
+            <div
+                className={
+                    `mx-auto h-0 w-0 
+                    border-r-[5rem] md:border-r-[8rem] lg:border-r-[12rem] 
+                    border-t-[10rem] md:border-t-[12rem] lg:border-t-[15rem] 
+                    border-l-[5rem] md:border-l-[8rem] lg:border-l-[12rem] 
+                    border-solid border-r-transparent border-l-transparent border-t-primary`
+                }
+            />
             <div className='absolute flex rounded-box justify-center items-center'>
                 <div className='carousel-item w-full'>
                     {currentAlienInView !== null ?
                         <img
-                            className={`${currentAlienInView.height?.silouette !== undefined ? `${currentAlienInView.height.silouette}` : "h-[15rem] lg:h-[20rem]"} transition-all duration-1000 ${alienTransformed ? "hidden" : "brightness-0"}`}
+                            className={
+                                `${currentAlienInView.height?.silouette !== undefined ? `${currentAlienInView.height.silouette}` : "h-[10rem] md:h-[15rem] lg:h-[20rem]"} 
+                                transition-all duration-1000 
+                                ${alienTransformed ? "hidden" : "brightness-0"}`
+                            }
                             src={currentAlienInView.img}
                             alt={`${currentAlienInView.img}`}
                             onClick={() => {
@@ -280,11 +314,11 @@ function AlienSelector({ flashingLights, viewAlienSelection, currentAlienInView,
 }
 
 
-type AlienImageProps = { currentAlienInView: Alien }
-function AlienImage({ currentAlienInView }: AlienImageProps) {
+type AlienImageProps = { currentAlienInView: Alien, transformAnimation: boolean }
+function AlienImage({ currentAlienInView, transformAnimation }: AlienImageProps) {
     return (
         <div className={`w-[90%] bg-transparent absolute z-50 h-0 flex justify-center items-center translate-y-64 translate-x-0 md:-translate-x-15 lg:translate-y-80 lg:translate-x-0`}>
-            <img className={`${currentAlienInView.ultimate && "cursor-pointer"} ml-[5rem] lg:ml-[15rem] ${currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[40rem]"}  brightness-100 drop-shadow-2xl contrast-200 animate-alienRotateUpLittle lg:animate-alienRotateUp `} src={currentAlienInView.ultimate ? currentAlienInView.ultimate?.img : currentAlienInView.img} alt="alien_image" />
+            <img className={`${currentAlienInView.ultimate && "cursor-pointer"} ml-[5rem] lg:ml-[15rem] ${currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[40rem]"}  brightness-100 drop-shadow-2xl contrast-200 translate-y-[-100px] ${transformAnimation ? "animate-alienRotateUpLittle lg:animate-alienRotateUp" : ""}`} src={currentAlienInView.ultimate ? currentAlienInView.ultimate?.img : currentAlienInView.img} alt="alien_image" />
         </div>
     );
 }
