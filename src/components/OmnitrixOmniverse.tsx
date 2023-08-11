@@ -77,7 +77,7 @@ function OmnitrixOmniverse() {
                 new Audio(omniverse_openSelector).play()
             }
 
-            if(viewAlienSelection){
+            if (viewAlienSelection) {
                 new Audio(omniverse_untransform).play()
             }
             setTransform(false)
@@ -90,7 +90,8 @@ function OmnitrixOmniverse() {
         setCurrentAlienInView(null)
         setRecharged(prev => !prev)
         setTransform(false)
-        if(transform){
+        if (!recharged) new Audio(omniverse_openSelector).play()
+        if (transform) {
             new Audio(omniverse_untransform).play()
         }
     }
@@ -151,6 +152,7 @@ function OmnitrixOmniverse() {
                             setAlienSelectedTransformed={setAlienSelectedTransformed}
                             setCurrentAlienInView={setCurrentAlienInView}
                             setTransform={setTransform}
+                            handleButtonClick={handleButtonClick}
                         />
 
                         {/* <div className={`flex justify-center items-center m-0 md:mr-[10rem] rotate-90`}> */}
@@ -297,7 +299,7 @@ function Lines({ /* margin, */ marginLine, rotateDirection, marginExternal, marg
                                 </div>
                             )
                         }
-                        
+
                         return (
                             <div key={linePattern} className='bg-transparent flex flex-col justify-center items-center'>
                                 <div className={`${marginExternal} h-[25%] bg-base-200 w-2 rounded-2xl`} />
@@ -341,12 +343,12 @@ function Ben10Logo({ currentAlienInView, setCurrentAlienInView, setAlienSelected
             }}
         >
             <div
-                className={`absolute w-[20rem] h-[20rem] lg:h-[25rem] lg:w-[25rem] rounded-full  flex flex-col justify-center items-center overflow-hidden bg-base-200 border-4 `}
+                className={`group absolute w-[20rem] h-[20rem] lg:h-[25rem] lg:w-[25rem] rounded-full  flex flex-col justify-center items-center overflow-hidden bg-base-200 border-4 `}
             >
                 <div
-                    className={`mx-auto h-0 w-0 border-r-[10rem] lg:border-r-[10rem]  border-t-[18rem] lg:border-t-[18rem]   border-l-[10rem] lg:border-l-[10rem] border-solid  border-r-transparent  border-l-transparent  border-t-primary rounded-full -mb-32 `} />
+                    className={`group-hover:border-t-secondary mx-auto h-0 w-0 border-r-[10rem] lg:border-r-[10rem]  border-t-[18rem] lg:border-t-[18rem]   border-l-[10rem] lg:border-l-[10rem] border-solid  border-r-transparent  border-l-transparent  border-t-primary rounded-full -mb-32 `} />
                 <div
-                    className={`mx-auto  h-0 w-0  border-r-[10rem] lg:border-r-[10rem]  border-b-[18rem] lg:border-b-[18rem]  border-l-[10rem] lg:border-l-[10rem] border-solid  border-r-transparent  border-l-transparent  border-b-primary rounded-full`} />
+                    className={`group-hover:border-b-secondary mx-auto  h-0 w-0  border-r-[10rem] lg:border-r-[10rem]  border-b-[18rem] lg:border-b-[18rem]  border-l-[10rem] lg:border-l-[10rem] border-solid  border-r-transparent  border-l-transparent  border-b-primary rounded-full`} />
             </div>
         </div>
     );
@@ -363,6 +365,8 @@ type UpperRingAlienSelectorProps = {
 function UpperRingAlienSelector({ viewAlienSelection, currentAlienInView, setViewAlienSelection, transform, setCurrentAlienInView }: UpperRingAlienSelectorProps) {
     const ITEMS_PER_PAGE = 5
     const [visibleResults, setVisibleResults] = useState<Alien[]>(ALL_ALIENS.slice(0, ITEMS_PER_PAGE/* simultaneous */))
+
+    const [changeAlienAnimation, setChangeAlienAnimation] = useState<'left' | 'right' | ''>('')
 
     const pagination = usePagination({
         total: Math.ceil(ALL_ALIENS.length / ITEMS_PER_PAGE),
@@ -399,6 +403,20 @@ function UpperRingAlienSelector({ viewAlienSelection, currentAlienInView, setVie
         }
     }
 
+    const handleButtonClickSpinLeft = () => {
+        setChangeAlienAnimation('left');
+        setTimeout(() => {
+            setChangeAlienAnimation('');
+        }, 2000); // Set the duration of the animation
+    };
+
+    const handleButtonClickSpinRight = () => {
+        setChangeAlienAnimation('right');
+        setTimeout(() => {
+            setChangeAlienAnimation('');
+        }, 2000); // Set the duration of the animation
+    };
+
     return (
         <div
             // onLoad={() => pagination.setPage(Math.floor(Math.random() * 13))}
@@ -419,49 +437,23 @@ function UpperRingAlienSelector({ viewAlienSelection, currentAlienInView, setVie
                 flex flex-col justify-center items-center ${viewAlienSelection && !transform ? "animate-scaleInCenter" : "animate-scaleOutCenter"}`
             }
         >
-            <div className='absolute lg:relative -mt-[12rem] lg:mt-[1rem] bg-transparent flex gap-[0rem]'>
+
+
+            <div
+                className={
+                    `h-full w-[25rem] lg:w-[50rem] 
+                    bg-transparent
+                    flex flex-col items-center 
+                    ${changeAlienAnimation === 'left' ? "animate-spinLeft"
+                        : changeAlienAnimation === 'right' ? "animate-spinRight"
+                            : ""
+                    }`
+                }
+            >
                 <div
-                    className={
-                        `bg-transparent 
-                        ${pagination.active !== 1 ?
-                            " border-transparent hover:btn-primary mt-[6rem] lg:mt-40 rotate-[50deg] w-[7rem] lg:w-[10rem] h-10"
-                            :
-                            "w-[10rem] invisible btn-disabled"
-                        }`
-                    }
-                    onClick={() => {
-                        // if (pagination.active !== 1) pagination.previous()
-                        // if (pagination.active === 1) pagination.last()
-                        pagination.previous()
-                    }}
-                />
-                <div
-                    className={
-                        `btn 
-                        border-transparent bg-transparent 
-                        hover:bg-base-200 hover:border-y-base-200 hover:border-white
-                        mt-[5rem] lg:mt-[8rem] h-[2rem] w-[5rem] lg:h-[40%] lg:w-[5rem]`
-                    }
-                    onClick={() => setViewAlienSelection(false)}
-                />
-                <div
-                    className={
-                        `bg-transparent
-                        ${pagination.active !== lastPage ?
-                            " border-transparent hover:btn-primary mt-[6rem] lg:mt-40 -rotate-[50deg] w-[7rem] lg:w-[10rem] h-10"
-                            :
-                            "w-[10rem] invisible btn-disabled"
-                        }`
-                    }
-                    onClick={() => {
-                        // if (pagination.active !== lastPage) pagination.next()
-                        // if (pagination.active === lastPage) pagination.first()
-                        pagination.next()
-                    }}
-                />
-            </div>
-            <div className={`h-full w-[25rem] lg:w-[50rem] flex flex-col items-center`}>
-                <div className={`w-full flex flex-row justify-center gap-10 bg-transparent -mt-[2rem] lg:-mt-[15rem] ${viewAlienSelection && !transform ? "animate-scaleInCenter" : ""}`}>
+                    // className={` w-full flex flex-row justify-center gap-10 bg-transparent -mt-[2rem] lg:-mt-[15rem] ${viewAlienSelection && !transform ? "animate-scaleInCenter" : ""}`}
+                    className={`w-full flex flex-row justify-center gap-10 bg-transparent -mt-[2rem] ${viewAlienSelection && !transform ? "animate-scaleInCenter" : ""}`}
+                >
                     {visibleResults.map((currentAlien, index) => {
                         return (
                             <div
@@ -489,7 +481,59 @@ function UpperRingAlienSelector({ viewAlienSelection, currentAlienInView, setVie
                     })}
                 </div>
 
+                <div className='absolute lg:relative mt-[0rem] lg:-mt-[8rem] bg-transparent flex gap-[0rem]'>
+                    <div
+                        className={
+                            `bg-transparent 
+                        ${pagination.active !== 1 ?
+                                " border-transparent hover:btn-primary mt-[6rem] lg:mt-40 rotate-[50deg] w-[7rem] lg:w-[10rem] h-10"
+                                :
+                                "w-[10rem] invisible btn-disabled"
+                            }`
+                        }
+                        onClick={() => {
+                            // if (pagination.active !== 1) pagination.previous()
+                            // if (pagination.active === 1) pagination.last()
+                            handleButtonClickSpinLeft()
+                            setTimeout(() => {
+                                pagination.previous()
+                            }, 500)
+                        }}
+                    />
+                    <div
+                        className={
+                            `btn 
+                        border-transparent bg-transparent 
+                        hover:bg-base-200 hover:border-y-base-200 hover:border-white
+                        mt-[5rem] lg:mt-[8rem] h-[2rem] w-[5rem] lg:h-[40%] lg:w-[5rem]`
+                        }
+                        onClick={() => {
+                            setViewAlienSelection(false)
+                            new Audio(omniverse_openSelector).play()
+                        }}
+                    />
+                    <div
+                        className={
+                            `bg-transparent
+                        ${pagination.active !== lastPage ?
+                                " border-transparent hover:btn-primary mt-[6rem] lg:mt-40 -rotate-[50deg] w-[7rem] lg:w-[10rem] h-10"
+                                :
+                                "w-[10rem] invisible btn-disabled"
+                            }`
+                        }
+                        onClick={() => {
+                            // if (pagination.active !== lastPage) pagination.next()
+                            // if (pagination.active === lastPage) pagination.first()
+                            handleButtonClickSpinRight()
+                            setTimeout(() => {
+                                pagination.next()
+                            }, 500)
+                        }}
+                    />
+                </div>
             </div>
+
+
         </div>
     );
 }
@@ -576,8 +620,8 @@ function CaseForOmnitrix({ caseFunction, recharged, getAnimationCharger, transfo
                 h-[20rem] w-[20rem] lg:h-[30rem] lg:w-[30rem] 
                 flex flex-row justify-center items-center  
                 overflow-hidden 
-                ${/* !recharged ? "animate-none" : */ 
-                    transform ?
+                ${/* !recharged ? "animate-none" : */
+                transform ?
                     "animate-omnitrixCoverOmniverseInLittle lg:animate-omnitrixCoverOmniverseIn"
                     :
                     "animate-omnitrixCoverOmniverseOutLittle lg:animate-omnitrixCoverOmniverseOut"
@@ -605,8 +649,9 @@ type ButtonActivateOmnitrixProps = {
     setAlienSelectedTransformed: React.Dispatch<React.SetStateAction<boolean>>;
     setCurrentAlienInView: React.Dispatch<React.SetStateAction<Alien | null>>;
     setTransform: React.Dispatch<React.SetStateAction<boolean>>;
+    handleButtonClick: () => void
 }
-function ButtonActivateOmnitrix({ viewAlienSelection, alienSelectedTransformed, setViewAlienSelection, setAlienSelectedTransformed, setCurrentAlienInView, setTransform }: ButtonActivateOmnitrixProps) {
+function ButtonActivateOmnitrix({ viewAlienSelection, alienSelectedTransformed, setViewAlienSelection, setAlienSelectedTransformed, setCurrentAlienInView, setTransform, handleButtonClick }: ButtonActivateOmnitrixProps) {
     return (
         <div className={`${alienSelectedTransformed ? 'flex md:hidden' : "hidden"} z-50 -mr-5 md:mr-[5rem] lg:mr-[2rem] mt-16 md:mt-0 rounded-full bg-accent w-14 h-14 lg:h-36 lg:w-36  justify-center items-center`}>
             <div onClick={() => {
@@ -616,6 +661,10 @@ function ButtonActivateOmnitrix({ viewAlienSelection, alienSelectedTransformed, 
                     setCurrentAlienInView(null)
                 };
                 setTransform(false)
+                if (alienSelectedTransformed) {
+                    new Audio(omniverse_untransform).play()
+                    handleButtonClick()
+                }
             }} className={`btn w-10 h-10 lg:w-28 lg:h-28 rounded-full btn-primary ${viewAlienSelection ? "bg-secondary" : ""}`} />
         </div>
     );
@@ -626,14 +675,14 @@ function AlienImage({ currentAlienInView, transformAnimation/* , setCurrentAlien
     const [hovering, setHovering] = useState(false)
 
     return (
-        <div 
+        <div
             // className={`w-[90%] absolute z-50 h-0 flex justify-center items-center translate-y-60 md:translate-y-80`}
             className={`w-[100%] absolute z-50 h-0 flex justify-center items-center translate-y-60 md:translate-y-80`}
         >
             <img
                 style={
                     hovering ?
-                        { filter: `drop-shadow(10px 10px 10px ${currentAlienInView.color ? `${currentAlienInView.color}` : "green"}) contrast(2)` }
+                        { filter: `drop-shadow(10px 10px 10px ${currentAlienInView.color ? `${currentAlienInView.color} contrast(2)` : "green contrast(2)"}) ` }
                         :
                         {}
                 }
@@ -649,7 +698,7 @@ function AlienImage({ currentAlienInView, transformAnimation/* , setCurrentAlien
                     `${currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[35rem] mt-[3rem"}  
                     brightness-100 
                     contrast-200 
-                    translate-y-[-100px] 
+                    translate-y-[-100px]  md:translate-y-[-150px] 
                     ${transformAnimation ? "animate-alienRotateUpLittle lg:animate-alienRotateUp" : ""}`
                 }
                 src={currentAlienInView.img}
@@ -665,8 +714,8 @@ function AlienImage({ currentAlienInView, transformAnimation/* , setCurrentAlien
 type GreenBoxesOnTheSidesOfTheHandlerOmnitrixProps = {
     setCurrentAlienInView: React.Dispatch<React.SetStateAction<Alien | null>>
     currentAlienInView: Alien | null
-    transform: boolean; 
-    handleButtonClick: () => void 
+    transform: boolean;
+    handleButtonClick: () => void
 }
 function GreenBoxesOnTheSidesOfTheHandlerOmnitrix({ setCurrentAlienInView, currentAlienInView, transform, handleButtonClick }: GreenBoxesOnTheSidesOfTheHandlerOmnitrixProps) {
     function nextAlien() {
@@ -677,8 +726,8 @@ function GreenBoxesOnTheSidesOfTheHandlerOmnitrix({ setCurrentAlienInView, curre
 
         if (nextAlien === ALL_ALIENS.length) setCurrentAlienInView(ALL_ALIENS[0])
         if (nextAlien !== ALL_ALIENS.length) setCurrentAlienInView(ALL_ALIENS[nextAlien])
-        
-        if(transform) new Audio(omniverse_transform).play()
+
+        if (transform) new Audio(omniverse_transform).play()
         handleButtonClick()
     }
 
@@ -688,11 +737,11 @@ function GreenBoxesOnTheSidesOfTheHandlerOmnitrix({ setCurrentAlienInView, curre
             return acc
         }, 0)
 
-        
+
 
         if (previousAlien === -1) setCurrentAlienInView(ALL_ALIENS[ALL_ALIENS.length - 1])
         if (previousAlien > -1) setCurrentAlienInView(ALL_ALIENS[previousAlien])
-        if(transform) new Audio(omniverse_transform).play()
+        if (transform) new Audio(omniverse_transform).play()
 
         handleButtonClick()
     }
