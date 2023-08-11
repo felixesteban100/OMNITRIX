@@ -21,11 +21,27 @@ function OmnitrixOriginalOmniverse() {
 
     const [transformAnimation, setTransformAnimation] = useState<boolean>(false)
 
+    const [changeAlienAnimation, setChangeAlienAnimation] = useState<'left' | 'right' | ''>('')
+
     const handleButtonClick = () => {
         setTransformAnimation(true);
         setTimeout(() => {
             setTransformAnimation(false);
         }, 2000); // Set the duration of the animation
+    };
+
+    const handleButtonClickSpinLeft = () => {
+        setChangeAlienAnimation('left');
+        setTimeout(() => {
+            setChangeAlienAnimation('');
+        }, 3000); // Set the duration of the animation
+    };
+
+    const handleButtonClickSpinRight = () => {
+        setChangeAlienAnimation('right');
+        setTimeout(() => {
+            setChangeAlienAnimation('');
+        }, 3000); // Set the duration of the animation
     };
 
 
@@ -131,6 +147,7 @@ function OmnitrixOriginalOmniverse() {
                                     onClick={() => {
                                         selectPreviousAlien()
                                         if(alienTransformed) handleButtonClick()
+                                        if (alienTransformed || viewAlienSelection) handleButtonClickSpinLeft()
                                         if (!alienTransformed && viewAlienSelection) new Audio(og_selectOtherAlien).play()
                                         if (alienTransformed && viewAlienSelection) new Audio(og_transform).play()
                                     }}
@@ -142,6 +159,8 @@ function OmnitrixOriginalOmniverse() {
                                     alienTransformed={alienTransformed}
                                     recharged={recharged}
                                     handleButtonClick={handleButtonClick}
+                                    changeAlienAnimation={changeAlienAnimation}
+                                    handleButtonClickSpinRight={handleButtonClickSpinRight}
                                 />
                             </div>
 
@@ -191,17 +210,33 @@ type OuterSelectorRingProps = {
     alienTransformed: boolean;
     recharged: boolean
     handleButtonClick: () => void
+    changeAlienAnimation: 'left' | 'right' | ''
+    handleButtonClickSpinRight: () => void
 }
-function OuterSelectorRing({ selectNextAlien, viewAlienSelection, alienTransformed, recharged, handleButtonClick }: OuterSelectorRingProps) {
+function OuterSelectorRing({ selectNextAlien, viewAlienSelection, alienTransformed, recharged, handleButtonClick, changeAlienAnimation, handleButtonClickSpinRight  }: OuterSelectorRingProps) {
     return (
         <div
             onClick={() => {
                 selectNextAlien()
                 if(alienTransformed) handleButtonClick()
+                if (alienTransformed || viewAlienSelection) handleButtonClickSpinRight()
                 if (!alienTransformed && viewAlienSelection) new Audio(og_selectOtherAlien).play()
                 if (alienTransformed && viewAlienSelection) new Audio(og_transform).play()
             }}
-            className={`hover:border-black absolute border-[5rem] border-black bg-transparent ${viewAlienSelection ? "btn hover:border-black animate-spin-once" : "btn btn-disable bg-black"} ${alienTransformed ? "" : ""} w-[27rem] h-[27rem] sm:w-[32rem] sm:h-[32rem] md:w-[32rem] md:h-[32rem] lg:w-[37rem] lg:h-[37rem] rounded-full`}
+            // className={`hover:border-black absolute border-[5rem] border-black bg-transparent ${viewAlienSelection ? "btn hover:border-black animate-spin-once" : "btn btn-disable bg-black"} ${alienTransformed ? "" : ""} w-[27rem] h-[27rem] sm:w-[32rem] sm:h-[32rem] md:w-[32rem] md:h-[32rem] lg:w-[37rem] lg:h-[37rem] rounded-full`}
+            className={
+                `hover:border-black absolute border-[5rem] border-black bg-transparent 
+                 ${viewAlienSelection ? `btn hover:border-black`
+                    : "btn btn-disable bg-black"
+                } 
+                ${changeAlienAnimation === 'left' ? "animate-spinLeft"
+                    : changeAlienAnimation === 'right' ? "animate-spinRight"
+                        : ""
+                }
+                ${alienTransformed ? "" : ""} 
+                w-[27rem] h-[27rem] sm:w-[32rem] sm:h-[32rem] md:w-[32rem] md:h-[32rem] lg:w-[37rem] lg:h-[37rem] 
+                rounded-full`
+            }
         >
             <div className='absolute h-[25rem] w-[25rem] sm:h-[30rem] sm:w-[30rem] md:h-[30rem] md:w-[30rem] lg:h-[30rem] lg:w-[30rem] bg-transparent rounded-full flex flex-col gap-[11.5rem] sm:gap-[13rem] md:gap-[13rem] lg:gap-[16rem] justify-center items-center'>
                 <div className={`w-full flex justify-center bg-transparent`}>
@@ -318,7 +353,7 @@ type AlienImageProps = { currentAlienInView: Alien, transformAnimation: boolean 
 function AlienImage({ currentAlienInView, transformAnimation }: AlienImageProps) {
     return (
         <div className={`w-[90%] absolute z-50 h-0 flex justify-center items-center translate-y-64 translate-x-0 md:-translate-x-15 lg:translate-y-80 lg:translate-x-0`}>
-            <img className={`${currentAlienInView.ultimate && "cursor-pointer"} ml-[5rem] lg:ml-[15rem] ${currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[40rem]"}  brightness-100 drop-shadow-2xl contrast-200 translate-y-[-100px] ${transformAnimation ? "animate-alienRotateUpLittle lg:animate-alienRotateUp" : ""} `} src={currentAlienInView.ultimate ? currentAlienInView.ultimate?.img : currentAlienInView.img} alt="alien_image" />
+            <img className={`${currentAlienInView.ultimate && "cursor-pointer"} ml-[5rem] lg:ml-[15rem] ${currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[40rem]"}  brightness-100 drop-shadow-2xl contrast-200 translate-y-[-100px] lg:translate-y-[-180px] ${transformAnimation ? "animate-alienRotateUpLittle lg:animate-alienRotateUp" : ""} `} src={currentAlienInView.ultimate ? currentAlienInView.ultimate?.img : currentAlienInView.img} alt="alien_image" />
         </div>
     );
 }
