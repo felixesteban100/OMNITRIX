@@ -488,20 +488,24 @@ export const BEN10_KEYFRAMES = {
     },
     transformIntoAlien: {
         '0%': {
-            opacity: 1
+            backgroundColor: "theme('colors.primary')",
+            transform: 'scale(0) translateY(-850px)',
         },
         '25%': {
-            opacity: 0.5
+            backgroundColor: "theme('colors.primary')",
+            transform: 'scale(0.5) translateY(-850px)',
         },
         '50%': {
-            opacity: 0
+            backgroundColor: "white",
+            transform: 'scale(1) translateY(-850px)',
         },
         '75%': {
-            opacity: 0
+            backgroundColor: "theme('colors.primary')",
+            transform: 'scale(0.5) translateY(-850px)',
         },
         '100%': {
-            opacity: 0,
-            transform: 'scale(0)',
+            backgroundColor: "theme('colors.primary')",
+            transform: 'scale(0) translateY(-1000px)',
         }
     },
     alienNormalOut: {
@@ -619,6 +623,23 @@ export const BEN10_KEYFRAMES = {
             opacity: 1
         },
     },
+
+    spinLeft: {
+        'from': {
+            transform: 'rotate(360deg)'
+        },
+        'to': {
+            transform: 'rotate(0deg)'
+        }
+    },
+    spinRight: {
+        'from': {
+            transform: 'rotate(0deg)'
+        },
+        'to': {
+            transform: 'rotate(360deg)'
+        }
+    }
 }
 
 export const BEN10_ANIMATIONS = {
@@ -659,7 +680,10 @@ export const BEN10_ANIMATIONS = {
 
     "ultimateAlienActivate": "ultimateAlienActivate 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both",
 
-    "transformIntoAlien": "transformIntoAlien 3s ease-in-out forwards",
+    "transformIntoAlien": "transformIntoAlien 0.5s ease-in-out forwards",
+
+    "spinLeft" : "spinLeft 1s ease-in-out forwards", 
+    "spinRight" : "spinRight 1s ease-in-out forwards", 
 }
 
 export const BEN10_THEMES = {
