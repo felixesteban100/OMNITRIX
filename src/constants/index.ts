@@ -446,7 +446,7 @@ export const ALL_ALIENS_ALIEN_FORCE: Alien[] = [
     },
     {
         name: 'Humungousaur',
-        img: '/aliens/alien_force/humungousaur.png'
+        img: Math.random() < 0.5 ? '/aliens/alien_force/humungousaur.png' : "/aliens/alien_force/Humungousaur_Big.webp"
     },
     {
         name: 'Brainstorm',
