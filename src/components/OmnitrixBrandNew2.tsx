@@ -1,5 +1,5 @@
-import /* React, */ { useState} from 'react'
-import { ALL_ALIENS_OG_OMNIVERSE } from '../constants';
+import { useState } from 'react'
+import { ALL_ALIENS_BRAND_NEW } from '../constants';
 import { Alien } from '../types';
 import og_recharged from '/omnitrixSoundEffects/og/og_recharged.mp3'
 import og_openSelector from '/omnitrixSoundEffects/og/og_openSelector.mp3'
@@ -7,11 +7,9 @@ import og_selectOtherAlien from '/omnitrixSoundEffects/og/og_selectOtherAlien.mp
 import og_transform from '/omnitrixSoundEffects/og/og_transform.mp3'
 import og_untransform from '/omnitrixSoundEffects/og/og_untransform.mp3'
 
+const ALL_ALIENS: Alien[] = ALL_ALIENS_BRAND_NEW
 
-// const ALL_ALIENS: Alien[] = ALL_ALIENS_OG
-const ALL_ALIENS: Alien[] = ALL_ALIENS_OG_OMNIVERSE
-
-function OmnitrixOriginalOmniverse() {
+function OmnitrixBrandNew2() {
     const [viewAlienSelection, setViewAlienSelection] = useState<boolean>(false)
     const [alienTransformed, setAlienSelected] = useState<boolean>(false)
     const [currentAlienInView, setCurrentAlienInView] = useState<Alien | null>(null)
@@ -22,6 +20,7 @@ function OmnitrixOriginalOmniverse() {
     const [transformAnimation, setTransformAnimation] = useState<boolean>(false)
 
     const [changeAlienAnimation, setChangeAlienAnimation] = useState<'left' | 'right' | ''>('')
+
 
     const handleButtonClick = () => {
         setTransformAnimation(true);
@@ -96,8 +95,10 @@ function OmnitrixOriginalOmniverse() {
     }
 
     return (
-        <div data-theme="omnitrix_og" className='min-h-screen overflow-x-hidden px-0 mx-0'>
-            <div className='flex gap-5 ml-5 pt-5'>
+        <div data-theme="omnitrix_brand_new2" className='min-h-screen overflow-x-hidden px-0 mx-0'>
+            <div className='flex flex-row justify-center items-center gap-5 ml-5 pt-5'>
+                <label htmlFor='my-modal-alienInfo' className='btn'>View alien info</label>
+
                 <p>Toggle recharged</p>
                 <input
                     checked={recharged}
@@ -146,7 +147,7 @@ function OmnitrixOriginalOmniverse() {
                                 <div
                                     onClick={() => {
                                         selectPreviousAlien()
-                                        if(alienTransformed) handleButtonClick()
+                                        if (alienTransformed) handleButtonClick()
                                         if (alienTransformed || viewAlienSelection) handleButtonClickSpinLeft()
                                         if (!alienTransformed && viewAlienSelection) new Audio(og_selectOtherAlien).play()
                                         if (alienTransformed && viewAlienSelection) new Audio(og_transform).play()
@@ -189,6 +190,36 @@ function OmnitrixOriginalOmniverse() {
                 </div>
             </div>
 
+            {
+                currentAlienInView ?
+                    <Modal
+                        id={`my-modal-alienInfo`}
+                        size="h-[95vh] w-[80vw] max-w-[80rem]"
+                    // dataTestInside="modalAlien"
+                    // dataTestOutside="modalAlienOutside"
+                    >
+                        <div className='flex flex-col p-5 gap-10'>
+                            <div className='text-5xl text-center text-primary'>
+                                {`${currentAlienInView.name.charAt(0).toUpperCase()}${currentAlienInView.name.slice(1, currentAlienInView.name.length)}`}
+                            </div>
+
+                            <div className='flex flex-col justify-between items-center gap-1'>
+                                <p className='text-5xl'>Abilities</p>
+                                <div dangerouslySetInnerHTML={{ __html: currentAlienInView?.abilities ?? "" }} />
+                            </div>
+
+                            <div className='flex flex-col justify-between items-center gap-1'>
+                                <p className='text-5xl'>Weaknesses</p>
+                                <div dangerouslySetInnerHTML={{ __html: currentAlienInView?.weaknesses ?? "" }} />
+                            </div>
+
+                            <img className='h-auto w-[50vw] self-center' src={currentAlienInView.img} alt="" />
+                        </div>
+                    </Modal>
+                    :
+                    null
+            }
+
             {/* {
                 transformAnimation ?
                     <div className={`animate-transformIntoAlien absolute z-50 ${recharged ? "bg-primary translate-y-[-920px]" : "bg-error translate-y-[-800px]"} h-screen w-screen `} />
@@ -213,25 +244,25 @@ type OuterSelectorRingProps = {
     changeAlienAnimation: 'left' | 'right' | ''
     handleButtonClickSpinRight: () => void
 }
-function OuterSelectorRing({ selectNextAlien, viewAlienSelection, alienTransformed, recharged, handleButtonClick, changeAlienAnimation, handleButtonClickSpinRight  }: OuterSelectorRingProps) {
+function OuterSelectorRing({ selectNextAlien, viewAlienSelection, alienTransformed, recharged, handleButtonClick, changeAlienAnimation, handleButtonClickSpinRight }: OuterSelectorRingProps) {
     return (
         <div
             onClick={() => {
                 selectNextAlien()
-                if(alienTransformed) handleButtonClick()
+                if (alienTransformed) handleButtonClick()
                 if (alienTransformed || viewAlienSelection) handleButtonClickSpinRight()
                 if (!alienTransformed && viewAlienSelection) new Audio(og_selectOtherAlien).play()
                 if (alienTransformed && viewAlienSelection) new Audio(og_transform).play()
             }}
-            // className={`hover:border-black absolute border-[5rem] border-black bg-transparent ${viewAlienSelection ? "btn hover:border-black animate-spin-once" : "btn btn-disable bg-black"} ${alienTransformed ? "" : ""} w-[27rem] h-[27rem] sm:w-[32rem] sm:h-[32rem] md:w-[32rem] md:h-[32rem] lg:w-[37rem] lg:h-[37rem] rounded-full`}
+
             className={
                 `hover:border-black absolute border-[5rem] border-black bg-transparent 
                  ${viewAlienSelection ? `btn hover:border-black`
                     : "btn btn-disable bg-black"
                 } 
                 ${changeAlienAnimation === 'left' ? "animate-spinLeft"
-                    : /* changeAlienAnimation === 'right' ? */ "animate-spinRight"
-                        /* : "" */
+                    : changeAlienAnimation === 'right' ? "animate-spinRight"
+                        : ""
                 }
                 ${alienTransformed ? "" : ""} 
                 w-[27rem] h-[27rem] sm:w-[32rem] sm:h-[32rem] md:w-[32rem] md:h-[32rem] lg:w-[37rem] lg:h-[37rem] 
@@ -307,8 +338,6 @@ function AlienSelector({ flashingLights, viewAlienSelection, currentAlienInView,
                 }
             }}
         >
-            {/* <div className={`mx-auto h-0 w-0 border-r-[8rem] lg:border-r-[12rem] border-b-[12rem] lg:border-b-[15rem] border-l-[8rem] lg:border-l-[12rem] border-solid  border-r-transparent  border-l-transparent  border-b-primary -mb-0.5 `} /> */}
-            {/* <div className={`mx-auto h-0 w-0 border-r-[8rem] lg:border-r-[12rem] border-t-[12rem] lg:border-t-[15rem] border-l-[8rem] lg:border-l-[12rem] border-solid  border-r-transparent  border-l-transparent  border-t-primary`} /> */}
             <div
                 className={
                     `mx-auto h-0 w-0 
@@ -332,7 +361,11 @@ function AlienSelector({ flashingLights, viewAlienSelection, currentAlienInView,
                 <div className='carousel-item w-full'>
                     {currentAlienInView !== null ?
                         <img
-                            className={`${currentAlienInView.height?.silouette !== undefined ? `${currentAlienInView.height.silouette}` : "h-[10rem] md:h-[15rem] lg:h-[20rem]"} transition-all duration-1000 ${alienTransformed ? "hidden" : "brightness-0"}`}
+                            className={
+                                `${currentAlienInView.height?.silouette !== undefined ? `${currentAlienInView.height.silouette}` : "h-[10rem] md:h-[15rem] lg:h-[20rem]"} 
+                                transition-all duration-1000 
+                                ${alienTransformed ? "hidden" : "brightness-0"}`
+                            }
                             src={currentAlienInView.img}
                             alt={`${currentAlienInView.img}`}
                             onClick={() => {
@@ -352,9 +385,35 @@ function AlienSelector({ flashingLights, viewAlienSelection, currentAlienInView,
 type AlienImageProps = { currentAlienInView: Alien, transformAnimation: boolean }
 function AlienImage({ currentAlienInView, transformAnimation }: AlienImageProps) {
     return (
-        <div className={`w-[90%] absolute z-50 h-0 flex justify-center items-center translate-y-64 translate-x-0 md:-translate-x-15 lg:translate-y-80 lg:translate-x-0`}>
-            <img className={`${currentAlienInView.ultimate && "cursor-pointer"} ml-[5rem] lg:ml-[15rem] ${currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[40rem]"}  brightness-100 drop-shadow-2xl contrast-200 translate-y-[-100px] lg:translate-y-[-180px] ${transformAnimation ? "animate-alienRotateUpLittle lg:animate-alienRotateUp" : ""} `} src={currentAlienInView.ultimate ? currentAlienInView.ultimate?.img : currentAlienInView.img} alt="alien_image" />
+        <div className={`w-[90%] bg-transparent absolute z-50 h-0 flex justify-center items-center translate-y-64 translate-x-0 md:-translate-x-15 lg:translate-y-80 lg:translate-x-0`}>
+            <img className={`${currentAlienInView.ultimate && "cursor-pointer"} ml-[5rem] lg:ml-[15rem] ${currentAlienInView.height?.character !== undefined ? `${currentAlienInView.height.character}` : "h-[30rem] lg:h-[40rem]"}  brightness-100 drop-shadow-2xl contrast-200 translate-y-[-100px] lg:translate-y-[-180px] ${transformAnimation ? "animate-alienRotateUpLittle lg:animate-alienRotateUp" : ""}`} src={currentAlienInView.ultimate ? currentAlienInView.ultimate?.img : currentAlienInView.img} alt="alien_image" />
         </div>
     );
 }
-export default OmnitrixOriginalOmniverse
+
+
+type ModalProps = {
+    id: string
+    // dataTestInside?: string
+    // dataTestOutside?: string
+    size: string
+    children: JSX.Element | JSX.Element[]
+}
+
+function Modal({ id, /* dataTestInside, dataTestOutside, */ size, children }: ModalProps) {
+    return (
+        <div>
+            <input type="checkbox" id={id} className="modal-toggle" />
+            <label className="w-full h-full modal" /* data-test={dataTestOutside} */ htmlFor={id} >
+                <label /* data-test={dataTestInside} */ htmlFor="">
+                    <div className={`rounded-md bg-base-100 ${size} overflow-y-auto overflow-x-hidden`}>
+                        <div className='flex flex-col justify-center mt-5'>
+                            {children}
+                        </div>
+                    </div>
+                </label>
+            </label>
+        </div>
+    )
+}
+export default OmnitrixBrandNew2

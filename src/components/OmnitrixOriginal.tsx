@@ -229,8 +229,7 @@ function OuterSelectorRing({ selectNextAlien, viewAlienSelection, alienTransform
                     : "btn btn-disable bg-black"
                 } 
                 ${changeAlienAnimation === 'left' ? "animate-spinLeft"
-                    : changeAlienAnimation === 'right' ? "animate-spinRight"
-                        : ""
+                    : "animate-spinRight"
                 }
                 ${alienTransformed ? "" : ""} 
                 w-[27rem] h-[27rem] sm:w-[32rem] sm:h-[32rem] md:w-[32rem] md:h-[32rem] lg:w-[37rem] lg:h-[37rem] 

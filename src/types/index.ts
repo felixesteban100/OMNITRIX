@@ -8,4 +8,6 @@ export type Alien = {
     ultimate?: Alien
     color?: string
     little?: Alien
+    abilities?: string;
+    weaknesses?: string;
 }
